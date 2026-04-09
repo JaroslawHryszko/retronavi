@@ -196,7 +196,7 @@ public class ZANaviMainIntroActivityStatic extends AppCompatActivity implements 
 			colors.add(ContextCompat.getColor(this, R.color.zanavi_teal));
 			id_.add(ID_FIRST);
 			title_txt.add("");
-			desc_txt.add(Html.fromHtml(Navit.get_text("Welcome to ZANavi offline Navigation")));
+			desc_txt.add(Html.fromHtml(Navit.get_text("Welcome to ZANavi offline Navigation") + "<br><small>Na bazie Navit i ZANavi</small>"));
 			icon_res.add(R.drawable.icon_large);
 		}
 
@@ -218,35 +218,8 @@ public class ZANaviMainIntroActivityStatic extends AppCompatActivity implements 
 
 		if (!Navit.intro_flag_firststart)
 		{
-			if (Navit.intro_flag_info)
-			{
-
-				final String ZANAVI_MSG_PLUGIN_MARKET_LINK = "https://play.google.com/store/apps/details?id=com.zoffcc.applications.zanavi_msg";
-				final String ZANAVI_MSG_PLUGIN_FD_LINK = "https://static.zanavi.cc/app/zanavi_plugin_latest.apk";
-				// final String ZANAVI_UDONATE_LINK = "http://more.zanavi.cc/donate/";
-				final String ZANAVI_HOWTO_DEBUG_LINK = "http://static.zanavi.cc/be-a-testdriver/be-a-testdriver.html";
-				final String ZANAVI_HOWTO_UDONTATE_FREE_LINK = "http://static.zanavi.cc/activate-udonate/activate-udonate.html";
-
-				layouts.add(R.layout.intro_slide_static_04);
-				colors.add(ContextCompat.getColor(this, R.color.zanavi_teal));
-				title_txt.add("");
-
-				if (Navit.FDBL)
-				{
-					desc_txt.add(Html.fromHtml("<small>show " + (Navit.info_popup_seen_count_max - Navit.info_popup_seen_count + 1) + " more times<br>\n<br>\n</small>Help us to improve ZANavi, be a Testdriver and send in your route debug information.<br>\n<a href=\"" + ZANAVI_HOWTO_DEBUG_LINK + "\">HowTo be a Testdriver</a><br>\n<br>\n" + "And get the uDonate Version for free.<br>\n<a href=\"" + ZANAVI_HOWTO_UDONTATE_FREE_LINK + "\">get free uDonate version</a>\n" + "\n<br>\n<br>"
-							+ "Install the ZANavi Plugin and always know when updated maps are available.<br>\n<a href=\"" + ZANAVI_MSG_PLUGIN_FD_LINK + "\">download here</a><br>\n"));
-				}
-				else
-				{
-					desc_txt.add(Html.fromHtml("<small>show " + (Navit.info_popup_seen_count_max - Navit.info_popup_seen_count + 1) + " more times<br>\n<br>\n</small>Help us to improve ZANavi, be a Testdriver and send in your route debug information.<br>\n<a href=\"" + ZANAVI_HOWTO_DEBUG_LINK + "\">HowTo be a Testdriver</a><br>\n<br>\n" + "And get the uDonate Version for free.<br>\n<a href=\"" + ZANAVI_HOWTO_UDONTATE_FREE_LINK + "\">get free uDonate version</a>\n" + "\n<br>\n<br>"
-							+ "Install the ZANavi Plugin and always know when updated maps are available.<br>\n<a href=\"" + ZANAVI_MSG_PLUGIN_MARKET_LINK + "\">download here</a><br>\n"));
-				}
-
-				icon_res.add(R.drawable.icon);
-				id_.add(ID_INFO);
-				// reset flag
-				Navit.intro_flag_info = false;
-			}
+			// info/donate/testdriver slide removed for RetroNavi
+			Navit.intro_flag_info = false;
 		}
 
 		if (Navit.intro_flag_nomaps)
@@ -299,6 +272,8 @@ public class ZANaviMainIntroActivityStatic extends AppCompatActivity implements 
 			public void onClick(View v)
 			{
 				System.out.println("ZANaviMainIntroActivity:" + "finish2");
+				Navit.intro_flag_nomaps = false;
+				android.preference.PreferenceManager.getDefaultSharedPreferences(ZANaviMainIntroActivityStatic.this).edit().putBoolean(Navit.PREF_KEY_SKIP_NOMAPS, true).commit();
 				finish();
 			}
 		});
@@ -880,6 +855,9 @@ public class ZANaviMainIntroActivityStatic extends AppCompatActivity implements 
 			else if (cur_id == ID_NOMAPS)
 			{
 				System.out.println("i_of:NOMAPS_ID");
+
+				btnSkip.setVisibility(View.VISIBLE);
+				btnSkip.setText(Navit.get_text("Skip"));
 
 				try
 				{

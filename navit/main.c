@@ -613,9 +613,11 @@ void main_init_nls(void)
 	locale_dir = g_strdup_printf("%s/%s", navit_data_dir, "locale");
 	dbg(0, "NLS:locale_dir=%s\n", locale_dir);
 
+#ifdef ENABLE_NLS
 	bindtextdomain(PACKAGE, locale_dir);
 	bind_textdomain_codeset(PACKAGE, "UTF-8");
 	textdomain(PACKAGE);
+#endif
 
 	g_free(locale_dir);
 

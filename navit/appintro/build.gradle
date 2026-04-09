@@ -37,16 +37,16 @@ android {
 
 dependencies {
 
-  compile fileTree(dir: 'libs', include: ['*.jar'])
+  api fileTree(dir: 'libs', include: ['*.jar'])
 
 
-  // compile project(':android-support-v4')
-  // compile project(':android-support-v7-appcompat')
-  // compile project(':android-support-annotations')
+  // api project(':android-support-v4')
+  // api project(':android-support-v7-appcompat')
+  // api project(':android-support-annotations')
 
-  compile 'com.android.support:support-v4:23.3.0'
-  compile 'com.android.support:support-annotations:23.3.0'
-  compile 'com.android.support:appcompat-v7:23.3.0'
+  api 'com.android.support:support-v4:23.3.0'
+  api 'com.android.support:support-annotations:23.3.0'
+  api 'com.android.support:appcompat-v7:23.3.0'
 
 }
 

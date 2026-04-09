@@ -36,9 +36,11 @@
  * Boston, MA  02110-1301, USA.
  */
 
+#if !defined(ANDROID) || __ANDROID_API__ >= 21
 #define _FILE_OFFSET_BITS 64
 #define _LARGEFILE_SOURCE
 #define _LARGEFILE64_SOURCE
+#endif
 #include "config.h"
 
 #ifdef HAVE_UNISTD_H

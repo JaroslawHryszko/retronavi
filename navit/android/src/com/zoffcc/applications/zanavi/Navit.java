@@ -339,6 +339,7 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 	static Object backupManager = null;
 
 	final static String PREF_KEY_FIRST_START = "com.zoffcc.applications.zanavi.PREF_KEY_FIRST_START";
+	final static String PREF_KEY_SKIP_NOMAPS = "com.zoffcc.applications.zanavi.SKIP_NOMAPS";
 	final static String PREF_KEY_CRASH = "com.zoffcc.applications.zanavi.CRASH";
 	final static String PREF_KEY_LASTALIVE = "com.zoffcc.applications.zanavi.LASTALIVE";
 	final static String PREF_KEY_LASTUPDATETS = "com.zoffcc.applications.zanavi.LASTUPDATETS";
@@ -1840,82 +1841,10 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		}
 
 		// ---------- downloader threads ----------------
-		PackageInfo pkgInfo;
-		Navit_DonateVersion_Installed = false;
-		try
-		{
-			// is the donate version installed?
-			pkgInfo = getPackageManager().getPackageInfo("com.zoffcc.applications.zanavi_donate", 0);
-			String sharedUserId = pkgInfo.sharedUserId;
-			System.out.println("str nd=" + sharedUserId);
-			if (sharedUserId.equals("com.zoffcc.applications.zanavi"))
-			{
-				System.out.println("##bonus 001##");
-				Navit_DonateVersion_Installed = true;
-				NavitMapDownloader.MULTI_NUM_THREADS = NavitMapDownloader.MULTI_NUM_THREADS_MAX;
-			}
-		}
-		catch (NameNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		try
-		{
-			if (get_reglevel() == 1)
-			{
-				System.out.println("##U:bonus 001##");
-				Navit_DonateVersion_Installed = true;
-				NavitMapDownloader.MULTI_NUM_THREADS = NavitMapDownloader.MULTI_NUM_THREADS_MAX;
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		try
-		{
-			// is the "large map" donate version installed?
-			pkgInfo = getPackageManager().getPackageInfo("com.zoffcc.applications.zanavi_largemap_donate", 0);
-			String sharedUserId = pkgInfo.sharedUserId;
-			System.out.println("str lm=" + sharedUserId);
-
-			if (sharedUserId.equals("com.zoffcc.applications.zanavi"))
-			{
-				System.out.println("##bonus 002##");
-				Navit_DonateVersion_Installed = true;
-				Navit_Largemap_DonateVersion_Installed = true;
-				NavitMapDownloader.MULTI_NUM_THREADS = NavitMapDownloader.MULTI_NUM_THREADS_MAX;
-			}
-		}
-		catch (NameNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		try
-		{
-			if (get_reglevel() == 1)
-			{
-				System.out.println("##U:bonus 002##");
-				Navit_DonateVersion_Installed = true;
-				Navit_Largemap_DonateVersion_Installed = true;
-				NavitMapDownloader.MULTI_NUM_THREADS = NavitMapDownloader.MULTI_NUM_THREADS_MAX;
-			}
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		// RetroNavi: all features unlocked
+		Navit_DonateVersion_Installed = true;
+		Navit_Largemap_DonateVersion_Installed = true;
+		NavitMapDownloader.MULTI_NUM_THREADS = NavitMapDownloader.MULTI_NUM_THREADS_MAX;
 
 		// update map list
 		NavitMapDownloader.init_maps_without_donate_largemaps();
@@ -2613,19 +2542,19 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		Log.e("Navit", "trying to extract language resource " + NavitTextTranslations.main_language + "_" + NavitTextTranslations.sub_language);
 		if (!extractRes(NavitTextTranslations.main_language + "_" + NavitTextTranslations.sub_language, NAVIT_DATA_DIR + "/locale/" + NavitTextTranslations.main_language + "_" + NavitTextTranslations.sub_language + "/LC_MESSAGES/navit.mo"))
 		{
-			Log.e("Navit", "Failed to extract language resource " + NavitTextTranslations.main_language + "_" + NavitTextTranslations.sub_language);
+			Log.d("Navit", "Failed to extract language resource " + NavitTextTranslations.main_language + "_" + NavitTextTranslations.sub_language);
 		}
 
 		Log.e("Navit", "trying to extract language resource " + NavitTextTranslations.main_language + "_" + NavitTextTranslations.sub_language.toLowerCase());
 		if (!extractRes(NavitTextTranslations.main_language + "_" + NavitTextTranslations.sub_language.toLowerCase(), NAVIT_DATA_DIR + "/locale/" + NavitTextTranslations.main_language + "_" + NavitTextTranslations.sub_language + "/LC_MESSAGES/navit.mo"))
 		{
-			Log.e("Navit", "Failed to extract language resource " + NavitTextTranslations.main_language + "_" + NavitTextTranslations.sub_language.toLowerCase());
+			Log.d("Navit", "Failed to extract language resource " + NavitTextTranslations.main_language + "_" + NavitTextTranslations.sub_language.toLowerCase());
 		}
 
 		Log.e("Navit", "trying to extract language resource " + NavitTextTranslations.main_language);
 		if (!extractRes(NavitTextTranslations.main_language, NAVIT_DATA_DIR + "/locale/" + NavitTextTranslations.main_language + "/LC_MESSAGES/navit.mo"))
 		{
-			Log.e("Navit", "Failed to extract language resource " + NavitTextTranslations.main_language);
+			Log.d("Navit", "Failed to extract language resource " + NavitTextTranslations.main_language);
 		}
 
 		// DEBUG - check if language file is on SDCARD -
@@ -2880,8 +2809,15 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 			{
 				if ((!NavitMapDownloader.download_active) && (!NavitMapDownloader.download_active_start))
 				{
-					intro_flag_nomaps = true;
+					if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_KEY_SKIP_NOMAPS, false))
+					{
+						intro_flag_nomaps = true;
+					}
 				}
+			}
+			else
+			{
+				PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean(PREF_KEY_SKIP_NOMAPS, false).commit();
 			}
 		}
 		catch (Exception e)
@@ -3536,8 +3472,15 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 			{
 				if ((!NavitMapDownloader.download_active) && (!NavitMapDownloader.download_active_start))
 				{
-					intro_flag_nomaps = true;
+					if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_KEY_SKIP_NOMAPS, false))
+					{
+						intro_flag_nomaps = true;
+					}
 				}
+			}
+			else
+			{
+				PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean(PREF_KEY_SKIP_NOMAPS, false).commit();
 			}
 		}
 		catch (Exception e)
@@ -3634,6 +3577,9 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 				Navit_Plugin_001_Installed = true;
 			}
 		}
+		catch (NameNotFoundException e)
+		{
+		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
@@ -3647,7 +3593,7 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		try
 		{
 			System.out.println("XXIIXX:111");
-			String mid_str = this.getIntent().getExtras().getString("com.zoffcc.applications.zanavi.mid");
+			String mid_str = this.getIntent().getExtras() != null ? this.getIntent().getExtras().getString("com.zoffcc.applications.zanavi.mid") : null;
 			System.out.println("XXIIXX:111a:mid_str=" + mid_str);
 
 			if (mid_str != null)
@@ -4822,6 +4768,157 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 				}
 			}.start();
 		}
+		// RetroNavi: apply bar visibility preferences
+		applyBarVisibility();
+	}
+
+	// RetroNavi: apply bar visibility preferences
+	private int origTopBarHeight = -1;
+	private int origBottomBarHeight = -1;
+	private Runnable toolbarHideRunnable = null;
+
+	private void applyBarVisibility()
+	{
+		try
+		{
+			RelativeLayout topBar = (RelativeLayout) findViewById(R.id.gui_top_container);
+			View bottomBar = findViewById(R.id.bottom_bar);
+			final FrameLayout bottomBarSlide = (FrameLayout) findViewById(R.id.bottom_bar_slide);
+			final android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+			FrameLayout mapContainer = (FrameLayout) findViewById(R.id.v002);
+
+			// save original heights on first call
+			if (origTopBarHeight < 0)
+			{
+				origTopBarHeight = topBar.getLayoutParams().height;
+				if (origTopBarHeight <= 0)
+				{
+					origTopBarHeight = getResources().getDimensionPixelSize(R.dimen.gui_top_container_height);
+				}
+			}
+			if (origBottomBarHeight < 0)
+			{
+				origBottomBarHeight = bottomBar.getLayoutParams().height;
+				if (origBottomBarHeight <= 0)
+				{
+					origBottomBarHeight = getResources().getDimensionPixelSize(R.dimen.bottom_bar_height);
+				}
+			}
+
+			// --- hide top (blue) bar ---
+			if (p.PREF_hide_top_bar)
+			{
+				android.view.ViewGroup.LayoutParams lp = topBar.getLayoutParams();
+				lp.height = 0;
+				topBar.setLayoutParams(lp);
+				topBar.setVisibility(View.INVISIBLE);
+				bottom_bar_px = 0;
+			}
+			else
+			{
+				android.view.ViewGroup.LayoutParams lp = topBar.getLayoutParams();
+				lp.height = origTopBarHeight;
+				topBar.setLayoutParams(lp);
+				topBar.setVisibility(View.VISIBLE);
+				bottom_bar_px = origTopBarHeight;
+			}
+
+			// --- hide bottom (white) bar ---
+			if (p.PREF_hide_bottom_bar)
+			{
+				android.view.ViewGroup.LayoutParams lp = bottomBar.getLayoutParams();
+				lp.height = 0;
+				bottomBar.setLayoutParams(lp);
+				bottomBar.setVisibility(View.INVISIBLE);
+				bottomBarSlide.setOnTouchListener(new View.OnTouchListener()
+				{
+					@Override
+					public boolean onTouch(View v, android.view.MotionEvent event)
+					{
+						return false;
+					}
+				});
+				bottomBarSlide.setVisibility(View.INVISIBLE);
+			}
+			else
+			{
+				android.view.ViewGroup.LayoutParams lp = bottomBar.getLayoutParams();
+				lp.height = origBottomBarHeight;
+				bottomBar.setLayoutParams(lp);
+				bottomBar.setVisibility(View.VISIBLE);
+				bottomBarSlide.setVisibility(View.VISIBLE);
+			}
+
+			// --- auto-hide toolbar (gray icon bar) ---
+			if (p.PREF_autohide_toolbar)
+			{
+				toolbar.setVisibility(View.GONE);
+			}
+			else
+			{
+				toolbar.setVisibility(View.VISIBLE);
+			}
+
+			// --- hide OSD overlays ---
+			View compass = findViewById(R.id.osd_compass_new);
+			if (compass != null)
+			{
+				compass.setVisibility(p.PREF_hide_compass ? View.GONE : View.VISIBLE);
+			}
+
+			View voiceSearch = findViewById(R.id.view_srec);
+			if (voiceSearch != null)
+			{
+				voiceSearch.setVisibility(p.PREF_hide_voice_search ? View.GONE : View.VISIBLE);
+			}
+
+			View laneAssist = findViewById(R.id.view_laneassist);
+			if (laneAssist != null)
+			{
+				laneAssist.setVisibility(p.PREF_hide_lane_assist ? View.GONE : View.VISIBLE);
+			}
+
+			View speeding = findViewById(R.id.view_speeding);
+			if (speeding != null)
+			{
+				speeding.setVisibility(p.PREF_hide_speeding ? View.GONE : View.VISIBLE);
+			}
+
+			mapContainer.requestLayout();
+		}
+		catch (Exception e)
+		{
+		}
+	}
+
+	@Override
+	public boolean dispatchTouchEvent(android.view.MotionEvent ev)
+	{
+		if (p.PREF_autohide_toolbar && ev.getAction() == android.view.MotionEvent.ACTION_DOWN)
+		{
+			final android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+			if (toolbar != null && toolbar.getVisibility() == View.GONE)
+			{
+				toolbar.setVisibility(View.VISIBLE);
+				if (toolbarHideRunnable != null)
+				{
+					toolbar.removeCallbacks(toolbarHideRunnable);
+				}
+				toolbarHideRunnable = new Runnable()
+				{
+					@Override
+					public void run()
+					{
+						if (p.PREF_autohide_toolbar)
+						{
+							toolbar.setVisibility(View.GONE);
+						}
+					}
+				};
+				toolbar.postDelayed(toolbarHideRunnable, 5000);
+			}
+		}
+		return super.dispatchTouchEvent(ev);
 	}
 
 	@TargetApi(Build.VERSION_CODES.FROYO)
@@ -5159,7 +5256,10 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		{
 			try
 			{
-				plugin_api.removeListener(zclientListener);
+				if (plugin_api != null)
+				{
+					plugin_api.removeListener(zclientListener);
+				}
 			}
 			catch (Exception e)
 			{
@@ -5274,16 +5374,7 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		menu.findItem(R.id.overflow_settings).setTitle(Navit.get_text("Settings"));
 		menu.findItem(R.id.overflow_zoom_to_route).setTitle(Navit.get_text("Zoom to Route"));
 
-		if (ZANaviNormalDonateActivity.on_amazon_device)
-		{
-			menu.findItem(R.id.overflow_donate_item).setTitle(Navit.get_text("Donate"));
-		}
-		else
-		{
-			menu.findItem(R.id.overflow_donate_item).setTitle(Navit.get_text("Donate with Google Play"));
-		}
-		menu.findItem(R.id.overflow_donate_bitcoins_item).setTitle(Navit.get_text("Donate with Bitcoin"));
-		//. TRANSLATORS: text to translate is: exit ZANavi
+		//. TRANSLATORS: text to translate is: exit RetroNavi
 		menu.findItem(R.id.overflow_exit).setTitle(Navit.get_text("exit navit"));
 		menu.findItem(R.id.overflow_toggle_poi).setTitle(Navit.get_text("toggle POI"));
 		menu.findItem(R.id.overflow_announcer_on).setTitle(Navit.get_text("Announcer On"));
@@ -5807,14 +5898,6 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		else if (item.getItemId() == R.id.overflow_zoom_to_route)
 		{
 			return onOptionsItemSelected_wrapper(11);
-		}
-		else if (item.getItemId() == R.id.overflow_donate_item)
-		{
-			return onOptionsItemSelected_wrapper(26);
-		}
-		else if (item.getItemId() == R.id.overflow_donate_bitcoins_item)
-		{
-			return onOptionsItemSelected_wrapper(27);
 		}
 		else if (item.getItemId() == R.id.overflow_exit)
 		{
@@ -6573,11 +6656,11 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 			{
 				if (wl_navigating != null)
 				{
-					//if (wl_navigating.isHeld())
-					//{
-					wl_navigating.release();
-					Log.e("Navit", "WakeLock Nav: release 1");
-					//}
+					if (wl_navigating.isHeld())
+					{
+						wl_navigating.release();
+						Log.e("Navit", "WakeLock Nav: release 1");
+					}
 				}
 			}
 			catch (Exception e)
@@ -10802,7 +10885,10 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		{
 			try
 			{
-				plugin_api.removeListener(zclientListener);
+				if (plugin_api != null)
+				{
+					plugin_api.removeListener(zclientListener);
+				}
 			}
 			catch (Exception e)
 			{
@@ -11458,6 +11544,13 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		p.PREF_streets_only = prefs.getBoolean("streets_only", false);
 		p.PREF_show_status_bar = prefs.getBoolean("show_status_bar", true);
 		p.PREF_show_poi_on_map = prefs.getBoolean("show_poi_on_map", false);
+		p.PREF_hide_top_bar = prefs.getBoolean("hide_top_bar", false);
+		p.PREF_hide_bottom_bar = prefs.getBoolean("hide_bottom_bar", false);
+		p.PREF_autohide_toolbar = prefs.getBoolean("autohide_toolbar", false);
+		p.PREF_hide_compass = prefs.getBoolean("hide_compass", false);
+		p.PREF_hide_voice_search = prefs.getBoolean("hide_voice_search", false);
+		p.PREF_hide_lane_assist = prefs.getBoolean("hide_lane_assist", false);
+		p.PREF_hide_speeding = prefs.getBoolean("hide_speeding", false);
 		p.PREF_last_selected_dir_gpxfiles = prefs.getString("last_selected_dir_gpxfiles", MAP_FILENAME_PATH + "/../");
 
 		p.PREF_roadspeed_warning = prefs.getBoolean("roadspeed_warning", false);
@@ -13877,7 +13970,6 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		}
 		catch (FileNotFoundException e)
 		{
-			e.printStackTrace();
 			map_points = new ArrayList<Navit_Point_on_Map>();
 		}
 		catch (IOException e)
@@ -14404,11 +14496,11 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 			{
 				if (wl_navigating != null)
 				{
-					//if (wl_navigating.isHeld())
-					//{
-					wl_navigating.release();
-					Log.e("Navit", "WakeLock Nav: release 1");
-					//}
+					if (wl_navigating.isHeld())
+					{
+						wl_navigating.release();
+						Log.e("Navit", "WakeLock Nav: release 1");
+					}
 				}
 			}
 			catch (Exception e)
@@ -16089,6 +16181,9 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 			}
 
 			last_orientation = newConfig.orientation;
+
+			// RetroNavi: re-apply bar visibility after orientation change
+			applyBarVisibility();
 		}
 	}
 
@@ -16764,6 +16859,12 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 	static private Uri uri = CR_CONTENT_URI;
 
 	static int get_reglevel()
+	{
+		// RetroNavi: always return max level
+		return 1;
+	}
+
+	static int get_reglevel_original_disabled()
 	{
 		int ret = 0;
 

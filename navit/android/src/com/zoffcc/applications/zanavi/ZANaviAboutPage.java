@@ -51,9 +51,13 @@ public class ZANaviAboutPage extends AppCompatActivity implements AsyncResponse
 		i2.setData(Uri.parse(froidUrls));
 		fdroidElement.setIntent(i2);
 
-		AboutPage ap = new AboutPage(this).isRTL(false).setImage(R.drawable.icon).setDescription(Navit.get_text("Welcome to ZANavi offline Navigation")).addItem(new Element().setTitle("Version " + Navit.ZANAVI_VERSION)).addItem(BugsElement).addEmail("feedback@zanavi.cc").addWebsite("http://zanavi.cc/")
-		// .addYoutube("UCoghiC-cOCZyq6PGehpm5wA")
-				.addPlayStore("com.zoffcc.applications.zanavi").addItem(fdroidElement).addGitHub("zoff99/zanavi");
+		Element navitElement = new Element();
+		navitElement.setTitle("Based on Navit and ZANavi");
+		Intent i3 = new Intent(Intent.ACTION_VIEW);
+		i3.setData(Uri.parse("https://github.com/navit-gps/navit"));
+		navitElement.setIntent(i3);
+
+		AboutPage ap = new AboutPage(this).isRTL(false).setImage(R.drawable.icon).setDescription("RetroNavi - offline navigation\nDerived from Navit and ZANavi").addItem(new Element().setTitle("Version " + Navit.ZANAVI_VERSION)).addItem(BugsElement).addItem(navitElement).addGitHub("JaroslawHryszko/retronavi");
 
 		Element e001 = new Element();
 		e001.setTitle("OpenStreetMap data is available under the Open Database Licence");
@@ -188,7 +192,7 @@ public class ZANaviAboutPage extends AppCompatActivity implements AsyncResponse
 		{
 		}
 
-		Navit.Global_Navit_Object.sendEmailWithAttachment(this, "feedback@zanavi.cc", "ZANavi Crashlog (v:" + subject_d_version + FD_addon + Navit.NavitAppVersion + " a:" + android.os.Build.VERSION.SDK + ")", feedback_text, full_file_name, full_file_name_suppl);
+		Navit.Global_Navit_Object.sendEmailWithAttachment(this, "feedback@zanavi.cc", "RetroNavi Crashlog (v:" + subject_d_version + FD_addon + Navit.NavitAppVersion + " a:" + android.os.Build.VERSION.SDK + ")", feedback_text, full_file_name, full_file_name_suppl);
 
 		// reset message
 		ZANaviMainApplication.last_stack_trace_as_string = "";

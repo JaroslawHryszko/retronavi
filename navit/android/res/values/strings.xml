@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ZANavi</string>
-    <string name="set_preferences">ZANavi settings</string>
+    <string name="app_name">RetroNavi</string>
+    <string name="set_preferences">RetroNavi settings</string>
+
+    <string name="pref_cat_position">Position</string>
+    <string name="pref_cat_direction">Direction</string>
+    <string name="pref_cat_units">Units</string>
+    <string name="pref_cat_tracking">Tracking</string>
+    <string name="pref_cat_routing">Routing</string>
+    <string name="pref_cat_gui">GUI</string>
+    <string name="pref_cat_debug">Debug</string>
+    <string name="pref_cat_language">Language</string>
+    <string name="pref_cat_data">Data</string>
+    <string name="pref_cat_info">Info</string>
+    <string name="pref_version_title">RetroNavi Version</string>
+    <string name="pref_version_summary">RetroNavi Version ???</string>
+    <string name="pref_custom_font_summary">use RetroNavi custom font</string>
 
     <string-array name="storageValues">
         <item>0</item>
@@ -53,7 +67,7 @@
         <item>1</item>
     </string-array>
     <string-array name="routing_engineArray">
-        <item>[offline]: ZANavi</item>
+        <item>[offline]: RetroNavi</item>
         <item>[ONLINE!]: OSRM</item>
     </string-array>
     <string-array name="trafficlights_delayValues">
@@ -494,5 +508,152 @@
         <item>Yi (PRC)</item>
         <item>Yoruba (Nigeria)</item>
     </string-array>
+
+    <string name="pref_hide_top_bar_title">Hide navigation bar</string>
+    <string name="pref_hide_top_bar_summ">Hide the blue navigation info bar (next turn, street name)</string>
+    <string name="pref_hide_bottom_bar_title">Hide info bar</string>
+    <string name="pref_hide_bottom_bar_summ">Hide the bottom info bar (ETA, distance)</string>
+    <string name="pref_autohide_toolbar_title">Auto-hide toolbar</string>
+    <string name="pref_autohide_toolbar_summ">Hide the toolbar until you touch the screen</string>
+    <string name="pref_hide_compass_title">Hide compass</string>
+    <string name="pref_hide_compass_summ">Hide the compass overlay on the map</string>
+    <string name="pref_hide_voice_search_title">Hide voice search</string>
+    <string name="pref_hide_voice_search_summ">Hide the voice search button on the map</string>
+    <string name="pref_hide_lane_assist_title">Hide lane assist</string>
+    <string name="pref_hide_lane_assist_summ">Hide the lane assistance overlay</string>
+    <string name="pref_hide_speeding_title">Hide speed warning</string>
+    <string name="pref_hide_speeding_summ">Hide the speed warning overlay</string>
+
+    <string name="pref_gsm_3g_wireless">GSM/3g/Wireless</string>
+    <string name="pref_agps">aGPS</string>
+    <string name="pref_follow">Follow</string>
+    <string name="pref_lock_on_roads">lock on Roads</string>
+    <string name="pref_vehicle_in_center">Vehicle in center</string>
+    <string name="pref_sat_status">Sat Status</string>
+    <string name="pref_compass">Compass</string>
+    <string name="pref_compass_always">Compass always</string>
+    <string name="pref_fast_compass">fast Compass</string>
+    <string name="pref_imperial">Imperial</string>
+    <string name="pref_roadsegment_connected_value">Roadsegment connected value</string>
+    <string name="pref_roadsegment_direction">Roadsegment direction</string>
+    <string name="pref_prefer_highways">prefer Highways</string>
+    <string name="pref_index_search">index search</string>
+    <string name="pref_roadspeed_warning">Roadspeed warning</string>
+    <string name="pref_roadspeed_warning_margin">Roadspeed warning margin</string>
+    <string name="pref_lane_assistance">Lane assistance</string>
+    <string name="pref_traffic_lights_delay">Traffic lights delay</string>
+    <string name="pref_routing_profile">Routing Profile</string>
+    <string name="pref_routing_engine">Routing Engine</string>
+    <string name="pref_street_priority_1">Street priority 1</string>
+    <string name="pref_street_priority_2">Street priority 2</string>
+    <string name="pref_street_priority_3">Street priority 3</string>
+    <string name="pref_cycle_lanes_priority">Cycle lanes priority</string>
+    <string name="pref_traffic_factor">Traffic Factor</string>
+    <string name="pref_avoid_sharp_turns">Avoid sharp turns</string>
+    <string name="pref_speak_streetnames">speak Streetnames</string>
+    <string name="pref_filter_special_chars">filter special chars</string>
+    <string name="pref_route_style">Route Style</string>
+    <string name="pref_show_poi">show POI</string>
+    <string name="pref_top_status_bar">top status bar</string>
+    <string name="pref_auto_night_mode">auto night mode</string>
+    <string name="pref_night_mode_lux">night mode lux</string>
+    <string name="pref_buffer_night_mode">buffer night mode</string>
+    <string name="pref_3d">3D</string>
+    <string name="pref_2d_3d_toggle">2D/3D toggle</string>
+    <string name="pref_zoomlevel">Zoomlevel</string>
+    <string name="pref_autozoom">Autozoom</string>
+    <string name="pref_faster_mapdrawing">Faster Mapdrawing</string>
+    <string name="pref_antialias">AntiAlias</string>
+    <string name="pref_map_filtering">Map Filtering</string>
+    <string name="pref_use_custom_font">use custom Font</string>
+    <string name="pref_smooth_drawing">Smooth Drawing</string>
+    <string name="pref_even_smoother_drawing">Even Smoother Drawing</string>
+    <string name="pref_multipolygons">Multipolygons</string>
+    <string name="pref_vehicle_3d">Vehicle 3D</string>
+    <string name="pref_theme">Theme</string>
+    <string name="pref_map_font_size">map font size</string>
+    <string name="pref_draw_more_detail">Draw more Detail</string>
+    <string name="pref_more_map_detail__beta">More map detail [BETA]</string>
+    <string name="pref_cache_for_map">Cache for Map</string>
+    <string name="pref_searchradius">Searchradius</string>
+    <string name="pref_oneway_arrows">OneWay Arrows</string>
+    <string name="pref_high_dpi">High DPI</string>
+    <string name="pref_streets_only">Streets only</string>
+    <string name="pref_debug_mgs">Debug Mgs</string>
+    <string name="pref_debug_functions">Debug Functions</string>
+    <string name="pref_detect_app_crash">Detect App Crash</string>
+    <string name="pref_write_route">Write route</string>
+    <string name="pref_show_real_gps_position_and_angle_on_map">Show real GPS position and angle on map</string>
+    <string name="pref_show_maps_on_lower_zoom_levels">Show maps on lower zoom levels</string>
+    <string name="pref_show_turnrestrictions">Show Turnrestrictions</string>
+    <string name="pref_show_item_dump">show item dump</string>
+    <string name="pref_show_route_rectangles">show route rectangles</string>
+    <string name="pref_custom_map_directory">Custom Map Directory</string>
+    <string name="pref_select_storage">Select Storage</string>
+    <string name="pref_use_gsm_3g_wireless_networks_for_getting_position">Use GSM/3g/Wireless networks for getting position</string>
+    <string name="pref_use_agps__assisted_gps__to_get_a_faster_fix__uses_internet">Use aGPS (assisted GPS) to get a faster fix (uses Internet)</string>
+    <string name="pref_center_on_gps__activate_this_for_compass_heading_to_work">Center on GPS. activate this for Compass heading to work</string>
+    <string name="pref_lock_vehicle_on_nearest_road__turn_off_if_you_are_walking_or">lock Vehicle on nearest Road. turn off if you are walking or driving offroad</string>
+    <string name="pref_show_vehicle_in_screen_center__instead_of_the_lower_half_of_">show vehicle in screen center, instead of the lower half of the screen</string>
+    <string name="pref_show_satellite_status">show Satellite status</string>
+    <string name="pref_get_direction_from_compass__needs_lots_of_cpu__the_worldview">Get direction from compass. needs lots of CPU! The worldview will show incorrect position!</string>
+    <string name="pref_get_current_heading_from_compass_even_at_higher_speeds">Get current heading from compass even at higher speeds</string>
+    <string name="pref_turns_much_smoother__warning__will_eat_all_your_cpu">turns much smoother, WARNING: WILL EAT ALL your CPU!!</string>
+    <string name="pref_use_imperial_units_instead_of_metric_units">Use Imperial units instead of metric units</string>
+    <string name="pref_roadsegment_must_be_connected_to_previous_roadsegment">Roadsegment must be connected to previous roadsegment</string>
+    <string name="pref_roadsegment_must_point_in_the_direction_of_your_heading">Roadsegment must point in the direction of your heading</string>
+    <string name="pref_prefer_highways_for_routing">prefer Highways for routing</string>
+    <string name="pref_use_faster_and_better_index_search__donate_version">use faster and better index search [donate version]</string>
+    <string name="pref_warns_when_driving_to_fast__donate_version">Warns when driving to fast [donate version]</string>
+    <string name="pref_margin_for_speed_warning">Margin for speed warning</string>
+    <string name="pref_shows_which_lanes_you_need_to_drive_on__donate_version">Shows which lanes you need to drive on [donate version]</string>
+    <string name="pref_calculate_traffic_lights_delay_for_routing">calculate traffic lights delay for routing</string>
+    <string name="pref_set_the_profile_for_routing">set the profile for routing</string>
+    <string name="pref_set_the_routing_engine">set the routing engine</string>
+    <string name="pref_change_the_usage_of_roads_for_bicycle_routing">change the usage of roads for bicycle routing</string>
+    <string name="pref_change_the_usage_of_larger_roads_for_bicycle_routing">change the usage of larger roads for bicycle routing</string>
+    <string name="pref_change_the_usage_of_even_bigger_roads_for_bicycle_routing">change the usage of even bigger roads for bicycle routing</string>
+    <string name="pref_change_the_usage_of_roads_with_cycle_lanes">change the usage of roads with cycle lanes</string>
+    <string name="pref_how_much_will_traffic_slow_down_your_speed">how much will traffic slow down your speed</string>
+    <string name="pref_try_to_avoid_sharp_turns__and_rather_go_a_longer_way_around_">try to avoid sharp turns, and rather go a longer way around [BETA]</string>
+    <string name="pref_say_streetnames_when_navigating__on_foreign_languages_street">Say Streetnames when navigating. on foreign languages streetnames may sound strange!</string>
+    <string name="pref_filter_special_chars_when_speaking_streetnames">filter special chars when speaking streetnames</string>
+    <string name="pref_paint_route_on_map_in_different_styles">Paint Route on map in different styles</string>
+    <string name="pref_show_poi_on_map">show POI on map</string>
+    <string name="pref_always_show_top_status_bar">always show top status bar</string>
+    <string name="pref_automatically_switch_between_day_and_night_mode">automatically switch between day and night mode</string>
+    <string name="pref_value_when_night_mode_is_switched_on">value when night mode is switched on</string>
+    <string name="pref_buffer_between_night_and_day_mode">buffer between night and day mode</string>
+    <string name="pref_show_map_in_3d__beta">show map in 3D [BETA]</string>
+    <string name="pref_show_2d_3d_toggle_instead_of_map_off_on_toggle">show 2D/3D toggle instead of Map off/on toggle</string>
+    <string name="pref_save_last_zoomlevel">save last Zoomlevel</string>
+    <string name="pref_set_map_zoom_automatically_according_to_driving_speed">set map zoom automatically according to driving speed</string>
+    <string name="pref_map_drawing_is_faster__but_it_may_look_choppy">map drawing is faster, but it may look choppy</string>
+    <string name="pref_draw_with_antialias__map_is_faster_when_this_is_off">draw with AntiAlias, map is faster when this is OFF</string>
+    <string name="pref_draw_map_with_filtering_on__this_looks_nicer__but_needs_more">draw Map with filtering on. this looks nicer, but needs more CPU power</string>
+    <string name="pref_smooth_drawing_when_moving_or_when_using_compass__beta">Smooth drawing when moving or when using compass [BETA]</string>
+    <string name="pref_much_smoother_drawing__warning__will_eat_all_your_cpu">Much smoother drawing, WARNING: WILL EAT ALL your CPU!!</string>
+    <string name="pref_draw_lines_and_areas_from_multipolygons">draw lines and areas from multipolygons</string>
+    <string name="pref_show_vehicle_correctly_in_3d_mode">show vehicle correctly in 3D mode</string>
+    <string name="pref_select_application_theme">Select Application Theme</string>
+    <string name="pref_select_font_size_for_map_text">Select font size for map text</string>
+    <string name="pref_draw_more_detail_on_map__change_only_on_fast_devices">Draw more Detail on map. change only on fast devices!</string>
+    <string name="pref_draw_more_detail_on_map__only_on_fast_devices__needs_a_resta">Draw more Detail on map. only on fast devices! needs a RESTART!!</string>
+    <string name="pref_cachesize_for_mapdrawing">Cachesize for Mapdrawing</string>
+    <string name="pref_searchradius_for_streets_inside_a_town__bigger_radius_will_f">Searchradius for streets inside a town. Bigger radius will find streets further away from town center</string>
+    <string name="pref_show_oneway_street_arrows__beta">show oneway street arrows [BETA]</string>
+    <string name="pref_use_240dpi_on_high_dpi_displays___320dpi___needs_restart">use 240dpi on high DPI displays (>320dpi). needs RESTART!</string>
+    <string name="pref_show_only_streets_on_map__map_display_is_faster_with_this_se">show only streets on map. map display is faster with this setting</string>
+    <string name="pref_show_debug_messages__debug">show Debug Messages [DEBUG]</string>
+    <string name="pref_enable_debug_functions_in_menu__debug">enable Debug functions in menu [DEBUG]</string>
+    <string name="pref_detect_if_app_has_crashed__debug">detect if App has crashed [DEBUG]</string>
+    <string name="pref_write_route_to_gpx_file__debug">write route to GPX file [DEBUG]</string>
+    <string name="pref_show_real_gps_pos__debug">Show real GPS pos [DEBUG]</string>
+    <string name="pref_show_maps_debug_view__debug">Show maps debug view [DEBUG]</string>
+    <string name="pref_show_turnrestrictions__debug">Show Turnrestrictions [DEBUG]</string>
+    <string name="pref_show_item_dump__debug">show item dump [DEBUG]</string>
+    <string name="pref_show_route_rectangles__debug">show route rectangles [DEBUG]</string>
+    <string name="pref_select_language_for_messages__needs_a_restart">Select Language for messages. needs a RESTART!!</string>
+    <string name="pref_change_mapdirectory__needs_a_restart">Change mapdirectory. needs a RESTART!!</string>
 
 </resources>

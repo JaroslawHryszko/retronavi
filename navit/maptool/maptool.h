@@ -160,7 +160,10 @@ int sql_counter4;
 #define debug_itembin(x) 0
 
 // ---------EXCEPTIONS--------
-char stack[SIGSTKSZ];
+#ifndef MAPTOOL_STACK_SIZE
+#define MAPTOOL_STACK_SIZE 65536
+#endif
+char stack[MAPTOOL_STACK_SIZE];
 struct sigaction sa;
 stack_t ss;
 void catch_signal(int param);

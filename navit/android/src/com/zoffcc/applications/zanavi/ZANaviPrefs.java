@@ -64,6 +64,13 @@ public class ZANaviPrefs
 	int PREF_current_theme_M = Navit.DEFAULT_THEME_OLD_DARK_M; // what theme/style to use
 	boolean PREF_show_status_bar = true;
 	boolean PREF_show_poi_on_map = false;
+	boolean PREF_hide_top_bar = false;
+	boolean PREF_hide_bottom_bar = false;
+	boolean PREF_autohide_toolbar = false;
+	boolean PREF_hide_compass = false;
+	boolean PREF_hide_voice_search = false;
+	boolean PREF_hide_lane_assist = false;
+	boolean PREF_hide_speeding = false;
 	String PREF_last_selected_dir_gpxfiles = "";
 	int PREF_tracking_connected_pref = 280;
 	int PREF_tracking_angle_pref = 40;
@@ -140,6 +147,13 @@ public class ZANaviPrefs
 		dst.PREF_current_theme = src.PREF_current_theme;
 		dst.PREF_current_theme_M = src.PREF_current_theme_M;
 		dst.PREF_show_status_bar = src.PREF_show_status_bar;
+		dst.PREF_hide_top_bar = src.PREF_hide_top_bar;
+		dst.PREF_hide_bottom_bar = src.PREF_hide_bottom_bar;
+		dst.PREF_autohide_toolbar = src.PREF_autohide_toolbar;
+		dst.PREF_hide_compass = src.PREF_hide_compass;
+		dst.PREF_hide_voice_search = src.PREF_hide_voice_search;
+		dst.PREF_hide_lane_assist = src.PREF_hide_lane_assist;
+		dst.PREF_hide_speeding = src.PREF_hide_speeding;
 		dst.PREF_show_poi_on_map = src.PREF_show_poi_on_map;
 		dst.PREF_last_selected_dir_gpxfiles = src.PREF_last_selected_dir_gpxfiles;
 		dst.PREF_tracking_connected_pref = src.PREF_tracking_connected_pref;

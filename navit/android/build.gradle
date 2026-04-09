@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+        maven { url "https://maven.google.com" }
         jcenter()
     }
 }
@@ -13,6 +14,7 @@ apply plugin: 'spoon'
 // -------QC-------
 
 repositories {
+    maven { url "https://maven.google.com" }
     jcenter()
 
     flatDir {
@@ -23,12 +25,14 @@ repositories {
 dependencies {
     // dependencies for app building
 
-    compile project(':android-about-page')
+    implementation 'com.android.support:multidex:1.0.3'
 
-    compile fileTree(dir: 'libs', include: '*.jar')
-    compile project(':android-support-v7-appcompat')
-    compile project(':android-support-annotations')
-    compile project(':android-support-vector-drawable')
+    implementation project(':android-about-page')
+
+    implementation fileTree(dir: 'libs', include: '*.jar')
+    implementation project(':android-support-v7-appcompat')
+    implementation project(':android-support-annotations')
+    implementation project(':android-support-vector-drawable')
 
     // androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
 
@@ -77,11 +81,6 @@ android {
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 23
-
-        jackOptions {
-            enabled true
-        }
-
         vectorDrawables.useSupportLibrary = true
         // generatedDensities = []
 
@@ -160,6 +159,7 @@ android {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/NOTICE'
 // -------QC-------
+        exclude '**/*.aidl'
     }
 
 }

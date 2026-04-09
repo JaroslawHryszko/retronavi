@@ -196,18 +196,11 @@ public class NavitSpeech2 implements TextToSpeech.OnInitListener, NavitActivityR
 
 					if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED)
 					{
-						// Lanuage data is missing or the language is not supported.
-						Log.e("NavitSpeech2", "3 Language is not available.");
+						Log.e("NavitSpeech2", "3 Language is not available, falling back to English.");
 
 						try
 						{
-							// lang for TTS not found, show toast
-							Message msg = Navit.Navit_progress_h.obtainMessage();
-							Bundle b = new Bundle();
-							msg.what = 2;
-							b.putString("text", Navit.get_text("Language is not available for TTS! Using your phone's default settings")); //TRANS
-							msg.setData(b);
-							Navit.Navit_progress_h.sendMessage(msg);
+							navit.mTts.setLanguage(Locale.ENGLISH);
 						}
 						catch (Exception e1)
 						{

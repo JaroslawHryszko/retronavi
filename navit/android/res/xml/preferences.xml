@@ -1,117 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <PreferenceCategory android:title="Position" >
+    <PreferenceCategory android:title="@string/pref_cat_position" >
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="use_fast_provider"
-            android:summary="Use GSM/3g/Wireless networks for getting position"
-            android:title="GSM/3g/Wireless" />
+            android:summary="@string/pref_use_gsm_3g_wireless_networks_for_getting_position"
+            android:title="@string/pref_gsm_3g_wireless" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="use_agps"
-            android:summary="Use aGPS (assisted GPS) to get a faster fix (uses Internet)"
-            android:title="aGPS" />
+            android:summary="@string/pref_use_agps__assisted_gps__to_get_a_faster_fix__uses_internet"
+            android:title="@string/pref_agps" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="follow_gps"
-            android:summary="Center on GPS. activate this for Compass heading to work"
-            android:title="Follow" />
+            android:summary="@string/pref_center_on_gps__activate_this_for_compass_heading_to_work"
+            android:title="@string/pref_follow" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="use_lock_on_roads"
-            android:summary="lock Vehicle on nearest Road. turn off if you are walking or driving offroad"
-            android:title="lock on Roads" />
+            android:summary="@string/pref_lock_vehicle_on_nearest_road__turn_off_if_you_are_walking_or"
+            android:title="@string/pref_lock_on_roads" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="show_vehicle_in_center"
-            android:summary="show vehicle in screen center, instead of the lower half of the screen"
-            android:title="Vehicle in center" />
+            android:summary="@string/pref_show_vehicle_in_screen_center__instead_of_the_lower_half_of_"
+            android:title="@string/pref_vehicle_in_center" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="show_sat_status"
-            android:summary="show Satellite status"
-            android:title="Sat Status" />
+            android:summary="@string/pref_show_satellite_status"
+            android:title="@string/pref_sat_status" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Direction" >
+    <PreferenceCategory android:title="@string/pref_cat_direction" >
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="use_compass_heading_base"
-            android:summary="Get direction from compass. needs lots of CPU! The worldview will show incorrect position!"
-            android:title="Compass" >
+            android:summary="@string/pref_get_direction_from_compass__needs_lots_of_cpu__the_worldview"
+            android:title="@string/pref_compass" >
         </CheckBoxPreference>
         <CheckBoxPreference
             android:defaultValue="false"
             android:dependency="use_compass_heading_base"
             android:key="use_compass_heading_always"
             android:layout="?android:attr/preferenceLayoutChild"
-            android:summary="Get current heading from compass even at higher speeds"
-            android:title="Compass always" />
+            android:summary="@string/pref_get_current_heading_from_compass_even_at_higher_speeds"
+            android:title="@string/pref_compass_always" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:dependency="use_compass_heading_base"
             android:key="use_compass_heading_fast"
             android:layout="?android:attr/preferenceLayoutChild"
-            android:summary="turns much smoother, WARNING: WILL EAT ALL your CPU!!"
-            android:title="fast Compass" >
+            android:summary="@string/pref_turns_much_smoother__warning__will_eat_all_your_cpu"
+            android:title="@string/pref_fast_compass" >
         </CheckBoxPreference>
     </PreferenceCategory>
-    <PreferenceCategory android:title="Units" >
+    <PreferenceCategory android:title="@string/pref_cat_units" >
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="use_imperial"
-            android:summary="Use Imperial units instead of metric units"
-            android:title="Imperial" />
+            android:summary="@string/pref_use_imperial_units_instead_of_metric_units"
+            android:title="@string/pref_imperial" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Tracking" android:key="category_tracking">
+    <PreferenceCategory android:title="@string/pref_cat_tracking" android:key="category_tracking">
 		<fr.atcm.carpooling.views.utils.SeekBarPreference
             android:defaultValue="250"
             android:dialogMessage="0:connected value"
             android:key="tracking_connected_pref"
             android:max="1000"
-            android:summary="Roadsegment must be connected to previous roadsegment"
+            android:summary="@string/pref_roadsegment_must_be_connected_to_previous_roadsegment"
             android:text=""
-            android:title="Roadsegment connected value" />
+            android:title="@string/pref_roadsegment_connected_value" />
 		<fr.atcm.carpooling.views.utils.SeekBarPreference
             android:defaultValue="40"
             android:dialogMessage="0:angle value"
             android:key="tracking_angle_pref"
             android:max="200"
-            android:summary="Roadsegment must point in the direction of your heading"
+            android:summary="@string/pref_roadsegment_must_point_in_the_direction_of_your_heading"
             android:text=""
-            android:title="Roadsegment direction" />
+            android:title="@string/pref_roadsegment_direction" />
 	</PreferenceCategory>
-    <PreferenceCategory android:title="Routing" >
+    <PreferenceCategory android:title="@string/pref_cat_routing" >
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="use_route_highways"
-            android:summary="prefer Highways for routing"
-            android:title="prefer Highways" />
+            android:summary="@string/pref_prefer_highways_for_routing"
+            android:title="@string/pref_prefer_highways" />
 <!--         <CheckBoxPreference -->
 <!--             android:defaultValue="true" -->
 <!--             android:key="use_index_search" -->
-<!--             android:summary="use faster and better index search [donate version]" -->
-<!--             android:title="index search" /> -->
+<!--             android:summary="@string/pref_use_faster_and_better_index_search__donate_version" -->
+<!--             android:title="@string/pref_index_search" /> -->
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="roadspeed_warning"
-            android:summary="Warns when driving to fast [donate version]"
-            android:title="Roadspeed warning" />
+            android:summary="@string/pref_warns_when_driving_to_fast__donate_version"
+            android:title="@string/pref_roadspeed_warning" />
 
         <ListPreference
             android:defaultValue="20"
             android:entries="@array/roadspeed_warning_marginArray"
             android:entryValues="@array/roadspeed_warning_marginValues"
             android:key="roadspeed_warning_margin"
-            android:summary="Margin for speed warning"
-            android:title="Roadspeed warning margin" />
+            android:summary="@string/pref_margin_for_speed_warning"
+            android:title="@string/pref_roadspeed_warning_margin" />
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="lane_assist"
-            android:summary="Shows which lanes you need to drive on [donate version]"
-            android:title="Lane assistance" />
+            android:summary="@string/pref_shows_which_lanes_you_need_to_drive_on__donate_version"
+            android:title="@string/pref_lane_assistance" />
 
         
 <!--        
@@ -132,58 +132,58 @@
             android:entries="@array/trafficlights_delayArray"
             android:entryValues="@array/trafficlights_delayValues"
             android:key="trafficlights_delay"
-            android:summary="calculate traffic lights delay for routing"
-            android:title="Traffic lights delay" />
+            android:summary="@string/pref_calculate_traffic_lights_delay_for_routing"
+            android:title="@string/pref_traffic_lights_delay" />
         <ListPreference
             android:defaultValue="car"
             android:entries="@array/routing_profileArray"
             android:entryValues="@array/routing_profileValues"
             android:key="routing_profile"
-            android:summary="set the profile for routing"
-            android:title="Routing Profile" />
+            android:summary="@string/pref_set_the_profile_for_routing"
+            android:title="@string/pref_routing_profile" />
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/routing_engineArray"
             android:entryValues="@array/routing_engineValues"
             android:key="routing_engine"
-            android:summary="set the routing engine"
-            android:title="Routing Engine" />
+            android:summary="@string/pref_set_the_routing_engine"
+            android:title="@string/pref_routing_engine" />
         
         <fr.atcm.carpooling.views.utils.SeekBarPreference
             android:defaultValue="58"
             android:dialogMessage="10:road priority 1"
             android:key="road_priority_001"
             android:max="200"
-            android:summary="change the usage of roads for bicycle routing"
+            android:summary="@string/pref_change_the_usage_of_roads_for_bicycle_routing"
             android:text=""
-            android:title="Street priority 1" />
+            android:title="@string/pref_street_priority_1" />
 
         <fr.atcm.carpooling.views.utils.SeekBarPreference
             android:defaultValue="319"
             android:dialogMessage="10:road priority 2"
             android:key="road_priority_002"
             android:max="500"
-            android:summary="change the usage of larger roads for bicycle routing"
+            android:summary="@string/pref_change_the_usage_of_larger_roads_for_bicycle_routing"
             android:text=""
-            android:title="Street priority 2" />
+            android:title="@string/pref_street_priority_2" />
 
          <fr.atcm.carpooling.views.utils.SeekBarPreference
             android:defaultValue="4990"
             android:dialogMessage="10:road priority 3"
             android:key="road_priority_003"
             android:max="5000"
-            android:summary="change the usage of even bigger roads for bicycle routing"
+            android:summary="@string/pref_change_the_usage_of_even_bigger_roads_for_bicycle_routing"
             android:text=""
-            android:title="Street priority 3" />
+            android:title="@string/pref_street_priority_3" />
 
          <fr.atcm.carpooling.views.utils.SeekBarPreference
             android:defaultValue="5"
             android:dialogMessage="0:road priority 4"
             android:key="road_priority_004"
             android:max="20"
-            android:summary="change the usage of roads with cycle lanes"
+            android:summary="@string/pref_change_the_usage_of_roads_with_cycle_lanes"
             android:text=""
-            android:title="Cycle lanes priority" />
+            android:title="@string/pref_cycle_lanes_priority" />
 
          
          <fr.atcm.carpooling.views.utils.SeekBarPreference
@@ -191,275 +191,311 @@
             android:dialogMessage="20:Traffic Factor"
             android:key="traffic_speed_factor"
             android:max="100"
-            android:summary="how much will traffic slow down your speed"
+            android:summary="@string/pref_how_much_will_traffic_slow_down_your_speed"
             android:text=""
-            android:title="Traffic Factor" />
+            android:title="@string/pref_traffic_factor" />
          
 <!--         
          <CheckBoxPreference
             android:defaultValue="false"
             android:key="avoid_sharp_turns"
-            android:summary="try to avoid sharp turns, and rather go a longer way around [BETA]"
-            android:title="Avoid sharp turns" />
+            android:summary="@string/pref_try_to_avoid_sharp_turns__and_rather_go_a_longer_way_around_"
+            android:title="@string/pref_avoid_sharp_turns" />
 -->
          <CheckBoxPreference
             android:defaultValue="true"
             android:key="speak_street_names"
-            android:summary="Say Streetnames when navigating. on foreign languages streetnames may sound strange!"
-            android:title="speak Streetnames" />
+            android:summary="@string/pref_say_streetnames_when_navigating__on_foreign_languages_street"
+            android:title="@string/pref_speak_streetnames" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="speak_filter_special_chars"
-            android:summary="filter special chars when speaking streetnames"
-            android:title="filter special chars" />
+            android:summary="@string/pref_filter_special_chars_when_speaking_streetnames"
+            android:title="@string/pref_filter_special_chars" />
 
         <ListPreference
             android:defaultValue="2"
             android:entries="@array/route_styleArray"
             android:entryValues="@array/route_styleValues"
             android:key="route_style"
-            android:summary="Paint Route on map in different styles"
-            android:title="Route Style" />
+            android:summary="@string/pref_paint_route_on_map_in_different_styles"
+            android:title="@string/pref_route_style" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="GUI" >
+    <PreferenceCategory android:title="@string/pref_cat_gui" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="hide_top_bar"
+            android:summary="@string/pref_hide_top_bar_summ"
+            android:title="@string/pref_hide_top_bar_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="hide_bottom_bar"
+            android:summary="@string/pref_hide_bottom_bar_summ"
+            android:title="@string/pref_hide_bottom_bar_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="autohide_toolbar"
+            android:summary="@string/pref_autohide_toolbar_summ"
+            android:title="@string/pref_autohide_toolbar_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="hide_compass"
+            android:summary="@string/pref_hide_compass_summ"
+            android:title="@string/pref_hide_compass_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="hide_voice_search"
+            android:summary="@string/pref_hide_voice_search_summ"
+            android:title="@string/pref_hide_voice_search_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="hide_lane_assist"
+            android:summary="@string/pref_hide_lane_assist_summ"
+            android:title="@string/pref_hide_lane_assist_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="hide_speeding"
+            android:summary="@string/pref_hide_speeding_summ"
+            android:title="@string/pref_hide_speeding_title" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="show_poi_on_map"
-            android:summary="show POI on map"
-            android:title="show POI" />
+            android:summary="@string/pref_show_poi_on_map"
+            android:title="@string/pref_show_poi" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="show_status_bar"
-            android:summary="always show top status bar"
-            android:title="top status bar" />
+            android:summary="@string/pref_always_show_top_status_bar"
+            android:title="@string/pref_top_status_bar" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="auto_night_mode"
-            android:summary="automatically switch between day and night mode"
-            android:title="auto night mode" />
+            android:summary="@string/pref_automatically_switch_between_day_and_night_mode"
+            android:title="@string/pref_auto_night_mode" />
 
         <fr.atcm.carpooling.views.utils.SeekBarPreference
             android:defaultValue="9"
             android:dialogMessage="1:night mode lux"
             android:key="night_mode_lux"
             android:max="160"
-            android:summary="value when night mode is switched on"
+            android:summary="@string/pref_value_when_night_mode_is_switched_on"
             android:text=""
-            android:title="night mode lux" />
+            android:title="@string/pref_night_mode_lux" />
 
         <fr.atcm.carpooling.views.utils.SeekBarPreference
             android:defaultValue="19"
             android:dialogMessage="1:night mode buffer"
             android:key="night_mode_buffer"
             android:max="50"
-            android:summary="buffer between night and day mode"
+            android:summary="@string/pref_buffer_between_night_and_day_mode"
             android:text=""
-            android:title="buffer night mode" />
+            android:title="@string/pref_buffer_night_mode" />
         
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="show_3d_map"
-            android:summary="show map in 3D [BETA]"
-            android:title="3D" />
+            android:summary="@string/pref_show_map_in_3d__beta"
+            android:title="@string/pref_3d" />
 <!--         <CheckBoxPreference -->
 <!--             android:defaultValue="true" -->
 <!--             android:key="show_2d3d_toggle" -->
-<!--             android:summary="show 2D/3D toggle instead of Map off/on toggle" -->
-<!--             android:title="2D/3D toggle" /> -->
+<!--             android:summary="@string/pref_show_2d_3d_toggle_instead_of_map_off_on_toggle" -->
+<!--             android:title="@string/pref_2d_3d_toggle" /> -->
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="save_zoomlevel"
-            android:summary="save last Zoomlevel"
-            android:title="Zoomlevel" />
+            android:summary="@string/pref_save_last_zoomlevel"
+            android:title="@string/pref_zoomlevel" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="autozoom_flag"
-            android:summary="set map zoom automatically according to driving speed"
-            android:title="Autozoom" />
+            android:summary="@string/pref_set_map_zoom_automatically_according_to_driving_speed"
+            android:title="@string/pref_autozoom" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="c_linedrawing"
-            android:summary="map drawing is faster, but it may look choppy"
-            android:title="Faster Mapdrawing" />
+            android:summary="@string/pref_map_drawing_is_faster__but_it_may_look_choppy"
+            android:title="@string/pref_faster_mapdrawing" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="use_anti_aliasing"
-            android:summary="draw with AntiAlias, map is faster when this is OFF"
-            android:title="AntiAlias" />
+            android:summary="@string/pref_draw_with_antialias__map_is_faster_when_this_is_off"
+            android:title="@string/pref_antialias" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="use_map_filtering"
-            android:summary="draw Map with filtering on. this looks nicer, but needs more CPU power"
-            android:title="Map Filtering" />
+            android:summary="@string/pref_draw_map_with_filtering_on__this_looks_nicer__but_needs_more"
+            android:title="@string/pref_map_filtering" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="use_custom_font"
-            android:summary="use ZANavi custom font"
-            android:title="use custom Font" />
+            android:summary="@string/pref_custom_font_summary"
+            android:title="@string/pref_use_custom_font" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="use_smooth_drawing"
-            android:summary="Smooth drawing when moving or when using compass [BETA]"
-            android:title="Smooth Drawing" />
+            android:summary="@string/pref_smooth_drawing_when_moving_or_when_using_compass__beta"
+            android:title="@string/pref_smooth_drawing" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:dependency="use_smooth_drawing"
             android:key="use_more_smooth_drawing"
             android:layout="?android:attr/preferenceLayoutChild"
-            android:summary="Much smoother drawing, WARNING: WILL EAT ALL your CPU!!"
-            android:title="Even Smoother Drawing" >
+            android:summary="@string/pref_much_smoother_drawing__warning__will_eat_all_your_cpu"
+            android:title="@string/pref_even_smoother_drawing" >
         </CheckBoxPreference>
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="show_multipolygons"
-            android:summary="draw lines and areas from multipolygons"
-            android:title="Multipolygons" />
+            android:summary="@string/pref_draw_lines_and_areas_from_multipolygons"
+            android:title="@string/pref_multipolygons" />
 <!--         <CheckBoxPreference -->
 <!--             android:defaultValue="true" -->
 <!--             android:key="show_vehicle_3d" -->
-<!--             android:summary="show vehicle correctly in 3D mode" -->
-<!--             android:title="Vehicle 3D" /> -->
+<!--             android:summary="@string/pref_show_vehicle_correctly_in_3d_mode" -->
+<!--             android:title="@string/pref_vehicle_3d" /> -->
 
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/themesArray"
             android:entryValues="@array/themesValues"
             android:key="current_theme"
-            android:summary="Select Application Theme"
-            android:title="Theme" />
+            android:summary="@string/pref_select_application_theme"
+            android:title="@string/pref_theme" />
         <ListPreference
             android:defaultValue="3"
             android:entries="@array/mapfontsizeArray"
             android:entryValues="@array/mapfontsizeValues"
             android:key="map_font_size"
-            android:summary="Select font size for map text"
-            android:title="map font size" />
+            android:summary="@string/pref_select_font_size_for_map_text"
+            android:title="@string/pref_map_font_size" />
         <!--
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/drawatorderArray"
             android:entryValues="@array/drawatorderValues"
             android:key="drawatorder"
-            android:summary="Draw more Detail on map. change only on fast devices!"
-            android:title="Draw more Detail" />        -->
+            android:summary="@string/pref_draw_more_detail_on_map__change_only_on_fast_devices"
+            android:title="@string/pref_draw_more_detail" />
+        -->
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/drawatorder2Array"
             android:entryValues="@array/drawatorder2Values"
             android:key="more_map_detail"
-            android:summary="Draw more Detail on map. only on fast devices! needs a RESTART!!"
-            android:title="More map detail [BETA]" />
+            android:summary="@string/pref_draw_more_detail_on_map__only_on_fast_devices__needs_a_resta"
+            android:title="@string/pref_more_map_detail__beta" />
         <ListPreference
             android:defaultValue="7168"
             android:entries="@array/mapcacheArray"
             android:entryValues="@array/mapcacheValues"
             android:key="mapcache"
-            android:summary="Cachesize for Mapdrawing"
-            android:title="Cache for Map" />
+            android:summary="@string/pref_cachesize_for_mapdrawing"
+            android:title="@string/pref_cache_for_map" />
         <ListPreference
             android:defaultValue="2"
             android:entries="@array/streetsearchrArray"
             android:entryValues="@array/streetsearchrValues"
             android:key="streetsearch_r"
-            android:summary="Searchradius for streets inside a town. Bigger radius will find streets further away from town center"
-            android:title="Searchradius" />
+            android:summary="@string/pref_searchradius_for_streets_inside_a_town__bigger_radius_will_f"
+            android:title="@string/pref_searchradius" />
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="gui_oneway_arrows"
-            android:summary="show oneway street arrows [BETA]"
-            android:title="OneWay Arrows" />
+            android:summary="@string/pref_show_oneway_street_arrows__beta"
+            android:title="@string/pref_oneway_arrows" />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="shrink_on_high_dpi"
-            android:summary="use 240dpi on high DPI displays (>320dpi). needs RESTART!"
-            android:title="High DPI" />
+            android:summary="@string/pref_use_240dpi_on_high_dpi_displays___320dpi___needs_restart"
+            android:title="@string/pref_high_dpi" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="streets_only"
-            android:summary="show only streets on map. map display is faster with this setting"
-            android:title="Streets only" />
+            android:summary="@string/pref_show_only_streets_on_map__map_display_is_faster_with_this_se"
+            android:title="@string/pref_streets_only" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Debug" >
+    <PreferenceCategory android:title="@string/pref_cat_debug" >
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="show_debug_messages"
-            android:summary="show Debug Messages [DEBUG]"
-            android:title="Debug Mgs" />
+            android:summary="@string/pref_show_debug_messages__debug"
+            android:title="@string/pref_debug_mgs" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="enable_debug_functions"
-            android:summary="enable Debug functions in menu [DEBUG]"
-            android:title="Debug Functions" />
+            android:summary="@string/pref_enable_debug_functions_in_menu__debug"
+            android:title="@string/pref_debug_functions" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="enable_debug_crashdetect"
-            android:summary="detect if App has crashed [DEBUG]"
-            android:title="Detect App Crash" />
+            android:summary="@string/pref_detect_if_app_has_crashed__debug"
+            android:title="@string/pref_detect_app_crash" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="enable_debug_write_gpx"
-            android:summary="write route to GPX file [DEBUG]"
-            android:title="Write route" />
+            android:summary="@string/pref_write_route_to_gpx_file__debug"
+            android:title="@string/pref_write_route" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="show_real_gps_pos"
-            android:summary="Show real GPS pos [DEBUG]"
-            android:title="Show real GPS position and angle on map" />
+            android:summary="@string/pref_show_real_gps_pos__debug"
+            android:title="@string/pref_show_real_gps_position_and_angle_on_map" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="show_maps_debug_view"
-            android:summary="Show maps debug view [DEBUG]"
-            android:title="Show maps on lower zoom levels" />
+            android:summary="@string/pref_show_maps_debug_view__debug"
+            android:title="@string/pref_show_maps_on_lower_zoom_levels" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="show_turn_restrictions"
-            android:summary="Show Turnrestrictions [DEBUG]"
-            android:title="Show Turnrestrictions" />
+            android:summary="@string/pref_show_turnrestrictions__debug"
+            android:title="@string/pref_show_turnrestrictions" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="item_dump"
-            android:summary="show item dump [DEBUG]"
-            android:title="show item dump" />
+            android:summary="@string/pref_show_item_dump__debug"
+            android:title="@string/pref_show_item_dump" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="show_route_rects"
-            android:summary="show route rectangles [DEBUG]"
-            android:title="show route rectangles" />
+            android:summary="@string/pref_show_route_rectangles__debug"
+            android:title="@string/pref_show_route_rectangles" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Language" >
+    <PreferenceCategory android:title="@string/pref_cat_language" >
         <ListPreference
             android:defaultValue="*DEFAULT*"
             android:entries="@array/langArray"
             android:entryValues="@array/langValues"
             android:key="navit_lang"
-            android:summary="Select Language for messages. needs a RESTART!!"
-            android:title="Language" />
+            android:summary="@string/pref_select_language_for_messages__needs_a_restart"
+            android:title="@string/pref_cat_language" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Data" >
+    <PreferenceCategory android:title="@string/pref_cat_data" >
         <EditTextPreference
             android:dialogMessage="mapdir"
             android:dialogTitle="Enter Map Directory"
             android:key="map_directory"
-            android:summary="Change mapdirectory. needs a RESTART!!"
-            android:title="Custom Map Directory" />
+            android:summary="@string/pref_change_mapdirectory__needs_a_restart"
+            android:title="@string/pref_custom_map_directory" />
 
         <ListPreference
             android:defaultValue="0"
             android:entries="@array/storageArray"
             android:entryValues="@array/storageValues"
             android:key="storage_directory"
-            android:summary="Change mapdirectory. needs a RESTART!!"
-            android:title="Select Storage" />
+            android:summary="@string/pref_change_mapdirectory__needs_a_restart"
+            android:title="@string/pref_select_storage" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Info" >
+    <PreferenceCategory android:title="@string/pref_cat_info" >
         <EditTextPreference
             android:name="About"
             android:defaultValue=""
             android:key="about_edit_text"
             android:selectable="false"
-            android:summary="ZANavi Version ???"
-            android:title="ZANavi Version" />
+            android:summary="@string/pref_version_summary"
+            android:title="@string/pref_version_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -40,16 +40,16 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    // compile 'com.android.support:appcompat-v7:24.2.0'
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    // api 'com.android.support:appcompat-v7:24.2.0'
 
-    compile project(':android-support-v7-appcompat')
-    compile project(':android-support-v4')
-    compile project(':android-support-compat')
-    compile project(':android-support-fragment')
-    //compile project(':android-support-core-ui')
-    //compile project(':android-support-core-utils')
-    //compile project(':android-support-annotations')
+    api project(':android-support-v7-appcompat')
+    api project(':android-support-v4')
+    api project(':android-support-compat')
+    api project(':android-support-fragment')
+    //api project(':android-support-core-ui')
+    //api project(':android-support-core-utils')
+    //api project(':android-support-annotations')
 
 }
 

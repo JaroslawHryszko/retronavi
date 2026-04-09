@@ -232,35 +232,7 @@ public class Logging
 			e.printStackTrace();
 		}
 
-		try
-		{
-			pkgInfo = context.getPackageManager().getPackageInfo("com.zoffcc.applications.zanavi_donate", 0);
-			builder.append("Donate  : ").append(pkgInfo.packageName).append(":").append(pkgInfo.sharedUserId).append(":").append(pkgInfo.versionCode).append("\n");
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		try
-		{
-			pkgInfo = context.getPackageManager().getPackageInfo("com.zoffcc.applications.zanavi_largemap_donate", 0);
-			builder.append("LMDonate: ").append(pkgInfo.packageName).append(":").append(pkgInfo.sharedUserId).append(":").append(pkgInfo.versionCode).append("\n");
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		try
-		{
-			pkgInfo = context.getPackageManager().getPackageInfo("com.zoffcc.applications.zanavi_udonate", 0);
-			builder.append("uDonate : ").append(pkgInfo.packageName).append(":").append(pkgInfo.sharedUserId).append(":").append(pkgInfo.versionCode).append("\n");
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		builder.append("RetroNavi: all features unlocked\n");
 		// ZANavi specific -----------
 
 		builder.append("App     : ");

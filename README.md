@@ -1,45 +1,57 @@
-﻿<img src="https://cloud.githubusercontent.com/assets/16841860/23113427/4eb1e016-f738-11e6-9b71-7503210245a4.png" width="530" />
+# RetroNavi
 
-**Travis:** [![Build Status](https://travis-ci.org/zoff99/zanavi.png?branch=master)](https://travis-ci.org/zoff99/zanavi/branches)
-**CircleCI:** [![CircleCI](https://circleci.com/gh/zoff99/zanavi/tree/master.png?style=badge)](https://circleci.com/gh/zoff99/zanavi/tree/master)
+Offline navigation for older Android devices (4.x+). Derived from [Navit](https://github.com/navit-gps/navit) and [ZANavi](https://github.com/zoff99/zanavi).
 
-ZANavi is a fork of NavIT. It is for the Android platfrom only!
-for more details look at our website
+RetroNavi is a revival of the abandoned ZANavi project, adapted to build and run on modern toolchains while targeting legacy Android hardware.
 
-http://zanavi.cc
+## Features
 
-### Compiling (command line)
+- Offline turn-by-turn navigation using OpenStreetMap data
+- Works on Android 2.3+ (optimized for 4.x devices with small screens)
+- Full Polish and English localization
+- Bicycle-friendly: hideable UI bars for maximum map visibility on small screens
+- All features unlocked (no donate-version restrictions)
+- TTS voice guidance with automatic English fallback
+
+## Building
+
+Requirements: JDK 8, Android SDK (platform 24, build-tools 24.0.2), Android NDK r16b, CMake 3.6, saxonb-xslt, xsltproc, autoconf, automake.
+
+### Native library (libnavit.so)
+
 ```
-git clone https://github.com/zoff99/zanavi
-cd zanavi
-git checkout master
-./download-androidstudio-files.sh
+export _NDK_=/path/to/ndk/16.1.4479499
+mkdir build-arm && cd build-arm
+../configure \
+  CC="arm-linux-androideabi-gcc ..." \
+  --host=arm-eabi-linux_android \
+  --disable-nls --disable-maptool \
+  --with-android-project="android-21"
+make -j$(nproc)
+cp navit/.libs/lib_data_data_com.zoffcc.applications.zanavi_lib_navit.so \
+   ../navit/android/nativelibs/armeabi/libnavit.so
+arm-linux-androideabi-strip ../navit/android/nativelibs/armeabi/libnavit.so
+```
+
+### APK
+
+```
 cd navit
-./gradlew assembleRelease --stacktrace
-find . -name '*.apk' -exec ls -al {} \;
+./gradlew assembleDebug
 ```
 
-### Compiling Android Studio
-first do this **outside** of Android Studio!
-```
-git clone https://github.com/zoff99/zanavi
-cd zanavi
-git checkout master
-./download-androidstudio-files.sh
-```
-now start Android Studio and select "import Project" then select the **navit** subdirectory<BR>
-in Android Studio just press "play"
+The APK will be at `navit/android/build/outputs/apk/debug/android-debug.apk`.
 
-### Development Snapshot Version
-the latest Development Snapshot can be downloaded from CircleCI, [here](https://circleci.com/api/v1/project/zoff99/zanavi/latest/artifacts/0/$CIRCLE_ARTIFACTS/zanavi.apk?filter=successful&branch=master)
+## Maps
 
-### Coding Style
-https://github.com/zoff99/Code-Style-Guidelines/blob/master/Android/Java.md
+RetroNavi uses Navit's binfile map format. Maps can be generated from OpenStreetMap data using ZANavi's maptool (building it from this repo's sources is a work in progress).
 
-### tagsoup-1.2.1.jar:
-http://home.ccil.org/~cowan/tagsoup/
+Map files (.bin) go into the device's map directory, typically:
+`/storage/sdcard0/Android/data/com.zoffcc.applications.zanavi/files/zanavi/maps/`
 
-downloaded from: http://home.ccil.org/~cowan/tagsoup/tagsoup-1.2.1.jar
+## License
 
+GPLv2, same as Navit and ZANavi. See individual source files for copyright details.
 
-
+Original Navit authors: Navit Team (2005-2008)
+Original ZANavi author: Zoff (2011-2018)

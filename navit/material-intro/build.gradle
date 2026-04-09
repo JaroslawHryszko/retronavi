@@ -55,16 +55,16 @@ configurations {
 }
 
 dependencies {
-    compile project(':android-support-v7-appcompat')
-    compile project(':android-support-compat')
-    compile project(':android-support-fragment')
-    compile project(':android-support-core-ui')
-    compile project(':android-support-core-utils')
-    compile project(':android-support-design')
-    compile project(':android-support-vector-drawable')
+    api project(':android-support-v7-appcompat')
+    api project(':android-support-compat')
+    api project(':android-support-fragment')
+    api project(':android-support-core-ui')
+    api project(':android-support-core-utils')
+    api project(':android-support-design')
+    api project(':android-support-vector-drawable')
 
-    // compile 'com.android.support:support-annotations:24.2.0'
-    compile project(':android-support-annotations')
+    // api 'com.android.support:support-annotations:24.2.0'
+    api project(':android-support-annotations')
 
     // javadocDeps 'com.android.support:support-annotations:24.2.0'
     javadocDeps project(':android-support-annotations')

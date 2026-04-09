@@ -24,6 +24,6 @@ android {
 }
 
 dependencies {
-    // compile fileTree(dir: 'libs', include: '*.jar')
-    compile project(':android-support-vector-drawable')
+    // api fileTree(dir: 'libs', include: '*.jar')
+    api project(':android-support-vector-drawable')
 }
