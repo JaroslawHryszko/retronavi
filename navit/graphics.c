@@ -2770,7 +2770,7 @@ static void displayitem_draw(struct displayitem *di, void *dummy, struct display
 
 							// -----------------------------
 
-							if (e->text_size)
+							if (e->text_size && !global_hide_labels_point)
 							{
 								struct graphics_font *font = get_font(gra, e->text_size);
 								struct graphics_gc *gc_background = dc->gc_background;
@@ -2809,7 +2809,7 @@ static void displayitem_draw(struct displayitem *di, void *dummy, struct display
 				}
 				break;
 			case element_text:
-				if (count && di->label)
+				if (count && di->label && !global_hide_labels_line)
 				{
 					//if (run_type > 100) // dbg(0,"gg006\n");
 

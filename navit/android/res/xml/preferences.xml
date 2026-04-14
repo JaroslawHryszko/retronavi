@@ -412,6 +412,16 @@
             android:title="@string/pref_high_dpi" />
         <CheckBoxPreference
             android:defaultValue="false"
+            android:key="hide_labels_line"
+            android:summary="Ukryj nazwy ulic, rzek, poziomnic itp."
+            android:title="Ukryj etykiety liniowe" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="hide_labels_point"
+            android:summary="Ukryj nazwy miast, wsi, POI itp."
+            android:title="Ukryj etykiety punktowe" />
+        <CheckBoxPreference
+            android:defaultValue="false"
             android:key="streets_only"
             android:summary="@string/pref_show_only_streets_on_map__map_display_is_faster_with_this_se"
             android:title="@string/pref_streets_only" />

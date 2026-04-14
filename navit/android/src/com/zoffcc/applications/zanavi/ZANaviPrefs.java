@@ -53,6 +53,8 @@ public class ZANaviPrefs
 	boolean PREF_speak_filter_special_chars = true;
 	boolean PREF_show_vehicle_3d = true;
 	boolean PREF_streets_only = false;
+	boolean PREF_hide_labels_line = false;
+	boolean PREF_hide_labels_point = false;
 	String PREF_routing_profile = "car"; // 'car' -> car , 'bike' -> bicycle
 	int PREF_road_prio_weight_street_1_city = 30;
 
@@ -138,6 +140,8 @@ public class ZANaviPrefs
 		dst.PREF_speak_filter_special_chars = src.PREF_speak_filter_special_chars;
 		dst.PREF_show_vehicle_3d = src.PREF_show_vehicle_3d;
 		dst.PREF_streets_only = src.PREF_streets_only;
+		dst.PREF_hide_labels_line = src.PREF_hide_labels_line;
+		dst.PREF_hide_labels_point = src.PREF_hide_labels_point;
 		dst.PREF_routing_profile = src.PREF_routing_profile;
 		dst.PREF_road_prio_weight_street_1_city = src.PREF_road_prio_weight_street_1_city;
 		dst.PREF_road_priority_001 = src.PREF_road_priority_001;

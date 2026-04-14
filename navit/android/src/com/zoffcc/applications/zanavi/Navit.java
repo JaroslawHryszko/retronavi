@@ -204,8 +204,8 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 
 	public static final String VERSION_TEXT_LONG_INC_REV = "4611";
 	static String ZANAVI_VERSION = "unknown";
-	public static int VERSION_CODE_FOR_LOG = 250;
-	public static String VERSION_NAME_FOR_LOG = "2.0.57";
+	public static int VERSION_CODE_FOR_LOG = 260;
+	public static String VERSION_NAME_FOR_LOG = "1.1.0";
 	public static String NavitAppVersion = "0";
 	public static String NavitAppVersion_prev = "-1";
 	public static String NavitAppVersion_string = "0";
@@ -5481,9 +5481,7 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		//menu.findItem(R.id.overflow_dummy1)
 		menu.findItem(R.id.overflow_export_map_points_to_sdcard).setTitle(Navit.get_text("export Destinations"));
 		menu.findItem(R.id.overflow_import_map_points_from_sdcard).setTitle(Navit.get_text("import Destinations"));
-		menu.findItem(R.id.overflow_send_feedback).setTitle(Navit.get_text("send feedback"));
-		menu.findItem(R.id.overflow_online_help).setTitle(Navit.get_text("online Help"));
-		menu.findItem(R.id.overflow_about).setTitle(Navit.get_text("About"));
+		menu.findItem(R.id.overflow_about).setTitle("O aplikacji");
 		//. TRANSLATORS: it means: "show current target in google maps"
 		//. TRANSLATORS: please keep this text short, to fit in the android menu!
 		menu.findItem(R.id.overflow_target_in_gmaps).setTitle(Navit.get_text("Target in gmaps"));
@@ -6076,14 +6074,6 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		else if (item.getItemId() == R.id.overflow_import_map_points_from_sdcard)
 		{
 			return onOptionsItemSelected_wrapper(608);
-		}
-		else if (item.getItemId() == R.id.overflow_send_feedback)
-		{
-			return onOptionsItemSelected_wrapper(24);
-		}
-		else if (item.getItemId() == R.id.overflow_online_help)
-		{
-			return onOptionsItemSelected_wrapper(16);
 		}
 		else if (item.getItemId() == R.id.overflow_about)
 		{
@@ -11636,6 +11626,8 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		p.PREF_tracking_angle_pref = (prefs.getInt("tracking_angle_pref", (40 - 0)) + 0); // must ADD minimum value!!
 
 		p.PREF_streets_only = prefs.getBoolean("streets_only", false);
+		p.PREF_hide_labels_line = prefs.getBoolean("hide_labels_line", false);
+		p.PREF_hide_labels_point = prefs.getBoolean("hide_labels_point", false);
 		p.PREF_show_status_bar = prefs.getBoolean("show_status_bar", true);
 		p.PREF_show_poi_on_map = prefs.getBoolean("show_poi_on_map", false);
 		p.PREF_hide_top_bar = prefs.getBoolean("hide_top_bar", false);
@@ -12932,6 +12924,24 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 			NavitGraphics.callback_handler.sendMessage(msg31);
 			// ----------------------- streets only pref -------------------
 		}
+
+		// ----------------------- hide labels prefs -------------------
+		{
+			Message msg_hl = new Message();
+			Bundle b_hl = new Bundle();
+			b_hl.putInt("Callback", 49);
+			b_hl.putString("s", p.PREF_hide_labels_line ? "1" : "0");
+			msg_hl.setData(b_hl);
+			NavitGraphics.callback_handler.sendMessage(msg_hl);
+
+			msg_hl = new Message();
+			b_hl = new Bundle();
+			b_hl.putInt("Callback", 48);
+			b_hl.putString("s", p.PREF_hide_labels_point ? "1" : "0");
+			msg_hl.setData(b_hl);
+			NavitGraphics.callback_handler.sendMessage(msg_hl);
+		}
+		// ----------------------- hide labels prefs -------------------
 
 		// ---------- set traffic factor for road speeds ------------
 		try

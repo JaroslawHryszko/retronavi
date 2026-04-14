@@ -183,19 +183,6 @@
                 compat:showAsAction="always|withText"
                 tools:ignore="AppCompatResource"/>
             <item
-                android:id="@+id/overflow_send_feedback"
-                android:orderInCategory="254"
-                android:title=""
-                compat:showAsAction="always|withText"
-                tools:ignore="AppCompatResource"/>
-            <item
-                android:id="@+id/overflow_online_help"
-                android:icon="@drawable/ic_action_help"
-                android:orderInCategory="270"
-                android:title=""
-                compat:showAsAction="always|withText"
-                tools:ignore="AppCompatResource"/>
-            <item
                 android:id="@+id/overflow_about"
                 android:orderInCategory="275"
                 android:title=""

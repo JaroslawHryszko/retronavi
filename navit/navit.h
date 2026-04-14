@@ -123,6 +123,8 @@ extern int global_show_route_rectangles;
 extern int global_traffic_light_delay;
 extern int global_clinedrawing_active;
 extern int global_draw_multipolygons;
+extern int global_hide_labels_line;
+extern int global_hide_labels_point;
 extern int global_have_dpi_value;
 extern float global_dpi_factor;
 extern int global_order_level_for_fast_draw;

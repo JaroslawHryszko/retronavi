@@ -3593,6 +3593,20 @@ highway_land" speed="120" route_weight="120" route_prio_weight="9">
 			// dbg(0, "DO__DRAW:cancel_drawing_global=1\n");
 			cancel_drawing_global = 1;
 		}
+		else if (i == 49)
+		{
+			// hide/show line labels (street names, river names, contour lines)
+			s = (*env)->GetStringUTFChars(env, str, NULL);
+			global_hide_labels_line = atoi(s);
+			(*env)->ReleaseStringUTFChars(env, str, s);
+		}
+		else if (i == 48)
+		{
+			// hide/show point labels (city names, POI labels)
+			s = (*env)->GetStringUTFChars(env, str, NULL);
+			global_hide_labels_point = atoi(s);
+			(*env)->ReleaseStringUTFChars(env, str, s);
+		}
 		else if (i == 47)
 		{
 			// change maps data dir
