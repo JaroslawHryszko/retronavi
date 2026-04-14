@@ -44,3 +44,19 @@ CMakeFiles/
 CMakeCache.txt
 navit/android/cmake_plugin_settings.txt
 CLAUDE.md
+
+# Build artifacts
+*.apk
+build-arm/
+build-android-*/
+release/
+
+# Autotools cache (not used, build is CMake/Gradle)
+autom4te.cache/
+*~
+
+# IDE files
+.project
+.projectset
+.settings/
+*.iml
