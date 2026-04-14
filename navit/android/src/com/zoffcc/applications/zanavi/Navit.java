@@ -416,7 +416,7 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 
 	// for future use ...
 	// public static String NavitDataDirectory = "/sdcard/";
-	public static String NavitDataDirectory_Maps = "/sdcard/zanavi/maps/";
+	public static String NavitDataDirectory_Maps = "/sdcard/retronavi/maps/";
 	static File[] NavitDataStorageDirs = null;
 
 	public static int GlobalScaleLevel = 0;
@@ -726,9 +726,9 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 	public static Boolean Navit_Announcer = true;
 
 	public static final int MAP_NUM_SECONDARY = 12;
-	static String MAP_FILENAME_PATH = "/sdcard/zanavi/maps/";
-	static String MAPMD5_FILENAME_PATH = "/sdcard/zanavi/md5/";
-	static String CFG_FILENAME_PATH = "/sdcard/zanavi/";
+	static String MAP_FILENAME_PATH = "/sdcard/retronavi/maps/";
+	static String MAPMD5_FILENAME_PATH = "/sdcard/retronavi/md5/";
+	static String CFG_FILENAME_PATH = "/sdcard/retronavi/";
 	static String NAVIT_DATA_DIR = "/data/data/com.zoffcc.applications.zanavi"; // later use: Context.getFilesDir().getPath();
 	static String NAVIT_DATA_SHARE_DIR = NAVIT_DATA_DIR + "/share";
 	static String NAVIT_DATA_DEBUG_DIR = CFG_FILENAME_PATH + "../debug/";
@@ -1760,6 +1760,81 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		activatePrefs_mapdir(true);
 		// get map data dir and set it -----------------------------
 
+		// migrate map files from old app-private dir to new public dir (on app update)
+		try
+		{
+			File oldPrivateDir = getExternalFilesDir(null);
+			if (oldPrivateDir != null)
+			{
+				String oldMapPath = oldPrivateDir.getAbsolutePath() + "/retronavi/maps/";
+				File oldMapDir = new File(oldMapPath);
+				if (oldMapDir.exists() && oldMapDir.isDirectory() && !oldMapPath.equals(MAP_FILENAME_PATH))
+				{
+					File newMapDir = new File(MAP_FILENAME_PATH);
+					newMapDir.mkdirs();
+					File[] oldFiles = oldMapDir.listFiles();
+					if (oldFiles != null)
+					{
+						for (File oldFile : oldFiles)
+						{
+							if (oldFile.isFile())
+							{
+								File newFile = new File(MAP_FILENAME_PATH + oldFile.getName());
+								if (!newFile.exists())
+								{
+									System.out.println("MapMigration: moving " + oldFile.getName() + " to public dir");
+									if (!oldFile.renameTo(newFile))
+									{
+										// renameTo fails across filesystems, fall back to copy
+										java.io.FileInputStream fis = new java.io.FileInputStream(oldFile);
+										java.io.FileOutputStream fos = new java.io.FileOutputStream(newFile);
+										byte[] buf = new byte[65536];
+										int len;
+										while ((len = fis.read(buf)) > 0)
+										{
+											fos.write(buf, 0, len);
+										}
+										fis.close();
+										fos.close();
+										oldFile.delete();
+										System.out.println("MapMigration: copied+deleted " + oldFile.getName());
+									}
+								}
+							}
+						}
+					}
+					// also migrate md5 files
+					String oldMd5Path = oldPrivateDir.getAbsolutePath() + "/retronavi/md5/";
+					File oldMd5Dir = new File(oldMd5Path);
+					if (oldMd5Dir.exists() && oldMd5Dir.isDirectory())
+					{
+						File newMd5Dir = new File(MAPMD5_FILENAME_PATH);
+						newMd5Dir.mkdirs();
+						File[] oldMd5Files = oldMd5Dir.listFiles();
+						if (oldMd5Files != null)
+						{
+							for (File oldFile : oldMd5Files)
+							{
+								if (oldFile.isFile())
+								{
+									File newFile = new File(MAPMD5_FILENAME_PATH + "/" + oldFile.getName());
+									if (!newFile.exists())
+									{
+										oldFile.renameTo(newFile);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			System.out.println("MapMigration: error: " + e.getMessage());
+		}
+		// end map migration
+
 		// get special prefs here ------------------------------------
 		get_prefs_highdpi();
 		// get special prefs here ------------------------------------
@@ -2560,9 +2635,9 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		// DEBUG - check if language file is on SDCARD -
 		try
 		{
-			File debug_mo_src = new File("/sdcard/zanavi/debug/navit.mo");
+			File debug_mo_src = new File("/sdcard/retronavi/debug/navit.mo");
 			File debug_mo_dest = new File(NAVIT_DATA_DIR + "/locale/" + NavitTextTranslations.main_language + "/LC_MESSAGES/navit.mo");
-			//* File navit_debug_dir = new File("/sdcard/zanavi/debug/");
+			//* File navit_debug_dir = new File("/sdcard/retronavi/debug/");
 			//* navit_debug_dir.mkdirs();
 			copyFile(debug_mo_src, debug_mo_dest);
 		}
@@ -12878,93 +12953,81 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 
 		// Get the xml/preferences.xml preferences
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Navit.getBaseContext_);
-		String default_sdcard_dir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/zanavi/maps/";
+		String default_sdcard_dir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/retronavi/maps/";
 		String default_sdcard_dir_1 = default_sdcard_dir;
 		System.out.println("DataStorageDir[s1]=" + default_sdcard_dir_1);
 		System.out.println("DDD:01:" + default_sdcard_dir_1);
 
-		// check for Android KitKat 4.4 ---------------
+		// Always use public external storage so maps survive app reinstall
+		// (getExternalFilesDir returns app-private dir that Android deletes on uninstall)
+
+		// Discover available storage locations using public paths
 		try
 		{
 			if (Integer.valueOf(android.os.Build.VERSION.SDK) > 18)
 			{
-				// use app private dir
-				default_sdcard_dir = Navit.getBaseContext_.getExternalFilesDir(null).getAbsolutePath();
+				// Use getExternalFilesDirs to discover storage devices, then convert to public base paths
+				File[] appPrivateDirs = android.support.v4.content.ContextCompat.getExternalFilesDirs(Navit.getBaseContext_, null);
+				String appPrivateSuffix = "/Android/data/" + Navit.getBaseContext_.getPackageName() + "/files";
 
-				if ((default_sdcard_dir.length() > "/zanavi/maps/".length()) && (!default_sdcard_dir.endsWith("/zanavi/maps/")))
+				if (appPrivateDirs != null && appPrivateDirs.length > 0)
 				{
-					default_sdcard_dir = default_sdcard_dir + "/zanavi/maps/";
-				}
-				System.out.println("DDD:02a:" + default_sdcard_dir);
-			}
-		}
-		catch (Exception e)
-		{
-		}
-		// check for Android KitKat 4.4 ---------------
-
-		try
-		{
-			NavitDataStorageDirs = android.support.v4.content.ContextCompat.getExternalFilesDirs(Navit.getBaseContext_, null);
-
-			if (NavitDataStorageDirs.length > 0)
-			{
-				// use new method
-				default_sdcard_dir = NavitDataStorageDirs[0].getAbsolutePath() + "/zanavi/maps/";
-				System.out.println("DataStorageDir count=" + NavitDataStorageDirs.length);
-
-				for (int jj2 = 0; jj2 < NavitDataStorageDirs.length; jj2++)
-				{
-					if (NavitDataStorageDirs[jj2] != null)
+					NavitDataStorageDirs = new File[appPrivateDirs.length];
+					for (int jj2 = 0; jj2 < appPrivateDirs.length; jj2++)
 					{
-						System.out.println("DataStorageDir[" + jj2 + "]=" + NavitDataStorageDirs[jj2].getAbsolutePath() + "/zanavi/maps/");
+						if (appPrivateDirs[jj2] != null)
+						{
+							String absPath = appPrivateDirs[jj2].getAbsolutePath();
+							int idx = absPath.indexOf(appPrivateSuffix);
+							if (idx > 0)
+							{
+								NavitDataStorageDirs[jj2] = new File(absPath.substring(0, idx));
+							}
+							else
+							{
+								NavitDataStorageDirs[jj2] = appPrivateDirs[jj2];
+							}
+							System.out.println("DataStorageDir[" + jj2 + "]=" + NavitDataStorageDirs[jj2].getAbsolutePath() + "/retronavi/maps/");
+						}
+					}
+					System.out.println("DataStorageDir count=" + NavitDataStorageDirs.length);
+				}
+
+				// Try to detect external SD card
+				if (NavitDataStorageDirs != null && NavitDataStorageDirs.length == 1)
+				{
+					File tf = null;
+					File[] NavitDataStorageDirs_ = new File[NavitDataStorageDirs.length + 1];
+
+					try
+					{
+						Map<String, File> externalLocations = ExternalStorage.getAllStorageLocations();
+						String externalSdCard__ = externalLocations.get(ExternalStorage.EXTERNAL_SD_CARD).getAbsolutePath();
+						System.out.println("DataStorageDir[external sd]=" + externalSdCard__);
+
+						NavitDataStorageDirs_[0] = NavitDataStorageDirs[0];
+						tf = new File(externalSdCard__);
+						System.out.println("DDD:03:" + tf.getAbsolutePath());
+					}
+					catch (Exception e)
+					{
+						tf = null;
+					}
+
+					if (tf != null)
+					{
+						NavitDataStorageDirs_[NavitDataStorageDirs.length] = tf;
+						NavitDataStorageDirs = null;
+						NavitDataStorageDirs = NavitDataStorageDirs_;
 					}
 				}
 			}
-
-			if (NavitDataStorageDirs.length == 1)
+			else
 			{
-				File tf = null;
-				File[] NavitDataStorageDirs_ = new File[NavitDataStorageDirs.length + 1];
-
-				try
-				{
-					Map<String, File> externalLocations = ExternalStorage.getAllStorageLocations();
-					// String sdCard__ = externalLocations.get(ExternalStorage.SD_CARD).getAbsolutePath();
-					String externalSdCard__ = externalLocations.get(ExternalStorage.EXTERNAL_SD_CARD).getAbsolutePath();
-					// System.out.println("DataStorageDir[sd]=" + sdCard__);
-					System.out.println("DataStorageDir[external sd]=" + externalSdCard__);
-
-					for (int jj2 = 0; jj2 < NavitDataStorageDirs.length; jj2++)
-					{
-						if (NavitDataStorageDirs[jj2] == null)
-						{
-							NavitDataStorageDirs_[jj2] = null;
-						}
-						else
-						{
-							NavitDataStorageDirs_[jj2] = new File(NavitDataStorageDirs[jj2].getAbsolutePath() + "/zanavi/maps/");
-
-							System.out.println("DDD:02:" + jj2 + ":" + NavitDataStorageDirs_[jj2]);
-						}
-					}
-
-					tf = new File(externalLocations.get(ExternalStorage.EXTERNAL_SD_CARD).getAbsolutePath() + "/Android/data/com.zoffcc.applications.zanavi/files" + "/zanavi/maps/");
-					System.out.println("DDD:03:" + tf.getAbsolutePath());
-				}
-				catch (Exception e)
-				{
-					tf = null;
-				}
-
-				if (tf != null)
-				{
-					NavitDataStorageDirs_[NavitDataStorageDirs.length] = tf;
-					NavitDataStorageDirs = null;
-					NavitDataStorageDirs = NavitDataStorageDirs_;
-				}
+				// NavitDataStorageDirs entries are BASE dirs - /retronavi/maps/ is appended later
+				NavitDataStorageDirs = new File[] { new File(Environment.getExternalStorageDirectory().getAbsolutePath()) };
+				System.out.println("DataStorageDir: using public path for API<=18: " + default_sdcard_dir);
 			}
-
 		}
 		catch (Exception e)
 		{
@@ -12975,16 +13038,27 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		//Log.e("Navit", "old sdcard dir=" + NavitDataDirectory_Maps);
 		//Log.e("Navit", "default sdcard dir=" + default_sdcard_dir);
 
-		if ((default_sdcard_dir.length() > "/zanavi/maps/".length()) && (default_sdcard_dir.endsWith("/zanavi/maps/")))
+		if ((default_sdcard_dir.length() > "/retronavi/maps/".length()) && (default_sdcard_dir.endsWith("/retronavi/maps/")))
 		{
 			NavitDataDirectory_Maps = prefs.getString("map_directory", default_sdcard_dir);
 		}
 		else
 		{
-			NavitDataDirectory_Maps = prefs.getString("map_directory", default_sdcard_dir + "/zanavi/maps/");
+			NavitDataDirectory_Maps = prefs.getString("map_directory", default_sdcard_dir + "/retronavi/maps/");
 		}
 
 		System.out.println("DDD:04:" + NavitDataDirectory_Maps);
+
+		// Migrate stored preference from app-private path to public path
+		String appPrivateMarker = "/Android/data/" + Navit.getBaseContext_.getPackageName() + "/files/";
+		if (NavitDataDirectory_Maps.contains(appPrivateMarker))
+		{
+			String oldPath = NavitDataDirectory_Maps;
+			NavitDataDirectory_Maps = NavitDataDirectory_Maps.replace(appPrivateMarker, "/");
+			NavitDataDirectory_Maps = NavitDataDirectory_Maps.replace("//", "/");
+			prefs.edit().putString("map_directory", NavitDataDirectory_Maps).commit();
+			System.out.println("DDD:migrated map_directory from app-private to public: " + oldPath + " -> " + NavitDataDirectory_Maps);
+		}
 
 		String Navit_storage_directory_select = prefs.getString("storage_directory", "-1");
 		int Navit_storage_directory_select_i = 0;
@@ -13003,13 +13077,13 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 
 		if (Navit_storage_directory_select_i > 0)
 		{
-			if ((NavitDataStorageDirs[Navit_storage_directory_select_i - 1].getAbsolutePath().length() > "/zanavi/maps/".length()) && (NavitDataStorageDirs[Navit_storage_directory_select_i - 1].getAbsolutePath().endsWith("/zanavi/maps/")))
+			if ((NavitDataStorageDirs[Navit_storage_directory_select_i - 1].getAbsolutePath().length() > "/retronavi/maps/".length()) && (NavitDataStorageDirs[Navit_storage_directory_select_i - 1].getAbsolutePath().endsWith("/retronavi/maps/")))
 			{
 				NavitDataDirectory_Maps = NavitDataStorageDirs[Navit_storage_directory_select_i - 1].getAbsolutePath();
 			}
 			else
 			{
-				NavitDataDirectory_Maps = NavitDataStorageDirs[Navit_storage_directory_select_i - 1].getAbsolutePath() + "/zanavi/maps/";
+				NavitDataDirectory_Maps = NavitDataStorageDirs[Navit_storage_directory_select_i - 1].getAbsolutePath() + "/retronavi/maps/";
 			}
 			System.out.println("DDD:06:" + NavitDataDirectory_Maps);
 		}
@@ -13023,8 +13097,8 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		//  0    --> use custom directory
 		//  1..n --> select default dir on SD Card number 1..n
 
-		// ** DEBUG ** set dir manually ** // NavitDataDirectory_Maps = default_sdcard_dir + "/zanavi/maps/";
-		// ** DEBUG ** NavitDataDirectory_Maps = prefs.getString("navit_mapsdir", "/sdcard" + "/zanavi/maps/");
+		// ** DEBUG ** set dir manually ** // NavitDataDirectory_Maps = default_sdcard_dir + "/retronavi/maps/";
+		// ** DEBUG ** NavitDataDirectory_Maps = prefs.getString("navit_mapsdir", "/sdcard" + "/retronavi/maps/");
 		//Log.e("Navit", "new sdcard dir=" + NavitDataDirectory_Maps);
 
 		// ---- log ----
@@ -13054,12 +13128,12 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 
 					for (int ij2 = 0; ij2 < Navit.NavitDataStorageDirs.length; ij2++)
 					{
-						if ((NavitDataStorageDirs[ij2].getAbsolutePath().length() > "/zanavi/maps/".length()) && (!NavitDataStorageDirs[ij2].getAbsolutePath().endsWith("/zanavi/maps/")))
+						if ((NavitDataStorageDirs[ij2].getAbsolutePath().length() > "/retronavi/maps/".length()) && (!NavitDataStorageDirs[ij2].getAbsolutePath().endsWith("/retronavi/maps/")))
 						{
 							System.out.println("DDD:06a:" + ij2 + ":" + Navit.NavitDataStorageDirs[ij2].getAbsolutePath());
 							String temp = NavitDataStorageDirs[ij2].getAbsolutePath();
 							NavitDataStorageDirs[ij2] = null;
-							NavitDataStorageDirs[ij2] = new File(temp + "/zanavi/maps/");
+							NavitDataStorageDirs[ij2] = new File(temp + "/retronavi/maps/");
 							System.out.println("DDD:06b:" + ij2 + ":" + Navit.NavitDataStorageDirs[ij2].getAbsolutePath());
 						}
 					}
