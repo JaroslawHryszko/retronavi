@@ -202,6 +202,18 @@
                 compat:showAsAction="always|withText"
                 tools:ignore="AppCompatResource"/>
             <item
+                android:id="@+id/overflow_update_app"
+                android:orderInCategory="6"
+                android:title="Pobierz aktualizację"
+                compat:showAsAction="always|withText"
+                tools:ignore="AppCompatResource"/>
+            <item
+                android:id="@+id/overflow_view_logs"
+                android:orderInCategory="265"
+                android:title="Logi aplikacji"
+                compat:showAsAction="always|withText"
+                tools:ignore="AppCompatResource"/>
+            <item
                 android:id="@+id/overflow_target_in_gmaps"
                 android:orderInCategory="280"
                 android:title="Target in gmaps"

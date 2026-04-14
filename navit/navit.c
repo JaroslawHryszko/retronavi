@@ -2932,7 +2932,7 @@ __F_START__
 			map2_attr.u.data = map2;
 			map2_attr.type = attr_map;
 			// mapset_add_attr_name(ms, &map2_attr);
-			mapset_add_attr_name_str(ms, &map2_attr, "/sdcard/zanavi/maps/borders.bin");
+			mapset_add_attr_name_str(ms, &map2_attr, "/sdcard/retronavi/maps/borders.bin");
 			struct attr active;
 			active.type = attr_active;
 			active.u.num = 0;
@@ -2969,7 +2969,7 @@ __F_START__
 			map2_attr.u.data = map2;
 			map2_attr.type = attr_map;
 			// mapset_add_attr_name(ms, &map2_attr);
-			mapset_add_attr_name_str(ms, &map2_attr, "/sdcard/zanavi/maps/coastline.bin");
+			mapset_add_attr_name_str(ms, &map2_attr, "/sdcard/retronavi/maps/coastline.bin");
 			struct attr active;
 			active.type = attr_active;
 			active.u.num = 0;
@@ -3189,7 +3189,7 @@ __F_START__
 				map22_attr.type = attr_map;
 				// mapset_add_attr_name(ms, &map22_attr);
 				char *map_name_str;
-				map_name_str = g_strdup_printf("/sdcard/zanavi/maps/navitmap_00%d.bin", i);
+				map_name_str = g_strdup_printf("/sdcard/retronavi/maps/navitmap_00%d.bin", i);
 				mapset_add_attr_name_str(ms, &map22_attr, map_name_str);
 				struct attr active;
 				active.type = attr_active;
@@ -3224,7 +3224,7 @@ __F_START__
 				map2_attr.type = attr_map;
 				// mapset_add_attr_name(ms, &map2_attr);
 				char *map_name_str;
-				map_name_str = g_strdup_printf("/sdcard/zanavi/maps/navitmap_0%d.bin", i);
+				map_name_str = g_strdup_printf("/sdcard/retronavi/maps/navitmap_0%d.bin", i);
 				mapset_add_attr_name_str(ms, &map2_attr, map_name_str);
 				struct attr active;
 				active.type = attr_active;
@@ -3376,7 +3376,7 @@ void navit_init(struct navit *this_)
 	// global_navit = this_;
 
 	// default value
-	navit_maps_dir = "/sdcard/zanavi/maps/";
+	navit_maps_dir = "/sdcard/retronavi/maps/";
 
 	global_img_waypoint = NULL;
 

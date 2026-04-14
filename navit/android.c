@@ -1524,7 +1524,7 @@ Java_com_zoffcc_applications_zanavi_NavitGraphics_DrawLowqualMap(JNIEnv* env, jo
 		{
 			if (strncmp("_ms_sdcard_map:", map_name_attr.u.str, 15) == 0)
 			{
-				if (strncmp("_ms_sdcard_map:/sdcard/zanavi/maps/navitmap", map_name_attr.u.str, 38) == 0)
+				if (strncmp("_ms_sdcard_map:/sdcard/retronavi/maps/navitmap", map_name_attr.u.str, 41) == 0)
 				{
 					// its an sdcard map
 					mr = map_rect_new(map, &sel);
@@ -1591,7 +1591,7 @@ Java_com_zoffcc_applications_zanavi_NavitGraphics_DrawLowqualMap(JNIEnv* env, jo
 		{
 			if (strncmp("_ms_sdcard_map:", map_name_attr.u.str, 15) == 0)
 			{
-				if (strncmp("_ms_sdcard_map:/sdcard/zanavi/maps/navitmap", map_name_attr.u.str, 38) == 0)
+				if (strncmp("_ms_sdcard_map:/sdcard/retronavi/maps/navitmap", map_name_attr.u.str, 41) == 0)
 				{
 					// its an sdcard map
 					mr = map_rect_new(map, &sel);
@@ -1754,7 +1754,7 @@ Java_com_zoffcc_applications_zanavi_NavitMapPreviewActivity_DrawMapPreview(JNIEn
 		{
 			if (strncmp("_ms_sdcard_map:", map_name_attr.u.str, 15) == 0)
 			{
-				if (strncmp("_ms_sdcard_map:/sdcard/zanavi/maps/borders.bin", map_name_attr.u.str, 41) == 0)
+				if (strncmp("_ms_sdcard_map:/sdcard/retronavi/maps/borders.bin", map_name_attr.u.str, 44) == 0)
 				{
 					// country borders
 					// //DBG // dbg(0,"map name=%s",map_name_attr.u.str);
@@ -1783,7 +1783,7 @@ Java_com_zoffcc_applications_zanavi_NavitMapPreviewActivity_DrawMapPreview(JNIEn
 						map_rect_destroy(mr);
 					}
 				}
-				else if (strncmp("_ms_sdcard_map:/sdcard/zanavi/maps/navitmap", map_name_attr.u.str, 38) == 0)
+				else if (strncmp("_ms_sdcard_map:/sdcard/retronavi/maps/navitmap", map_name_attr.u.str, 41) == 0)
 				{
 					// its an sdcard map
 					// //DBG // dbg(0,"map name=%s",map_name_attr.u.str);

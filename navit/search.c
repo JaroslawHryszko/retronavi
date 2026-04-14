@@ -1177,7 +1177,7 @@ static int search_address_housenumber_for_street(char *hn_name_match, char *stre
 		{
 			if (strncmp("_ms_sdcard_map:", map_name_attr.u.str, 15) == 0)
 			{
-				if (strncmp("_ms_sdcard_map:/sdcard/zanavi/maps/navitmap", map_name_attr.u.str, 43) == 0)
+				if (strncmp("_ms_sdcard_map:/sdcard/retronavi/maps/navitmap", map_name_attr.u.str, 46) == 0)
 				{
 					// its an sdcard map
 					mr = map_rect_new(map, sel);
@@ -1824,7 +1824,7 @@ void search_full_world(char *addr, int partial, int search_order, struct jni_obj
 		{
 			if (strncmp("_ms_sdcard_map:", map_name_attr.u.str, 15) == 0)
 			{
-				if (strncmp("_ms_sdcard_map:/sdcard/zanavi/maps/navitmap", map_name_attr.u.str, 43) == 0)
+				if (strncmp("_ms_sdcard_map:/sdcard/retronavi/maps/navitmap", map_name_attr.u.str, 46) == 0)
 				{
 					// its an sdcard map
 					//// dbg(0,"map name=%s",map_name_attr.u.str);

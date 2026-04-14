@@ -4494,7 +4494,7 @@ __F_START__
 
 				if (strncmp("_ms_sdcard_map:", map_name_attr.u.str, 15) == 0)
 				{
-					if (strncmp("_ms_sdcard_map:/sdcard/zanavi/maps/borders.bin", map_name_attr.u.str, 41) == 0)
+					if (strncmp("_ms_sdcard_map:/sdcard/retronavi/maps/borders.bin", map_name_attr.u.str, 44) == 0)
 					{
 						if (draw_tile_map == 1)
 						{
@@ -4509,7 +4509,7 @@ __F_START__
 					}
 
 /*
-					else if (strncmp("_ms_sdcard_map:/sdcard/zanavi/maps/coastline.bin", map_name_attr.u.str, 48) == 0)
+					else if (strncmp("_ms_sdcard_map:/sdcard/retronavi/maps/coastline.bin", map_name_attr.u.str, 51) == 0)
 					{
 						if (draw_tile_map == 1)
 						{

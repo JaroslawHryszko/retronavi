@@ -257,7 +257,7 @@ msgstr ""
 #. . TRANSLATORS: text to translate is: exit ZANavi
 #: Navit.java:5265
 msgid "exit navit"
-msgstr "wyjdź z ZANavi"
+msgstr "wyjdź z RetroNavi"
 
 #: Navit.java:5266
 msgid "toggle POI"

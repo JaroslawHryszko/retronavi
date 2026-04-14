@@ -1,10 +1,27 @@
+# Build libnavit.so for Android (or navit binary for desktop).
+#
+# For Android command-line build, run from parent directory:
+#   cmake -DANDROID=TRUE -DUSE_PLUGINS=FALSE -DDISABLE_CXX=TRUE
+#         -DANDROID_ABI=armeabi -DANDROID_NDK=<ndk-path>
+#         -DCMAKE_TOOLCHAIN_FILE=<ndk-path>/build/cmake/android.toolchain.cmake
+#         -DANDROID_NATIVE_API_LEVEL=9 -DCMAKE_BUILD_TYPE=Release
+#         -DBUILD_MAPTOOL=FALSE -DSAMPLE_MAP=FALSE ..
+#
+# Key flags:
+#   USE_PLUGINS=FALSE  - required, plugin system is disabled in ZANavi/RetroNavi
+#   DISABLE_CXX=TRUE   - no C++ needed, avoids NDK issues
+#   ANDROID_ABI=armeabi - target old ARM devices (not armeabi-v7a)
+#
+# After build: copy navit/libnavit.so -> android/nativelibs/armeabi/libnavit.so
+# Then strip with NDK strip and build APK with ./gradlew assembleDebug
+
 include_directories( "${PROJECT_BINARY_DIR}")
 include_directories( "${PROJECT_SOURCE_DIR}")
 include_directories( "${CMAKE_CURRENT_SOURCE_DIR}")
 include_directories( "${CMAKE_CURRENT_BINARY_DIR}")
 include_directories( "${CMAKE_CURRENT_SOURCE_DIR}/support")
 
-# navit
+# All source files compiled directly into libnavit.so (no separate module libs on Android)
 set(NAVIT_SRC announcement.c atom.c attr.c cache.c callback.c command.c config_.c coord.c country.c data_window.c debug.c
    event.c file.c graphics.c gui.c item.c layout.c log.c main.c map.c
    linguistics.c mapset.c maptype.c menu.c messages.c bookmarks.c navit.c navigation.c osd.c param.c phrase.c plugin.c popup.c
@@ -19,7 +36,13 @@ set(NAVIT_SRC announcement.c atom.c attr.c cache.c callback.c command.c config_.
    util.c vehicle.c vehicleprofile.c xmlconfig.c )
 
 if(NOT USE_PLUGINS)
-  list(APPEND NAVIT_SRC  ${CMAKE_CURRENT_BINARY_DIR}/builtin.c)
+  if(ANDROID)
+    # On Android, module plugin_init functions are disabled (#ifdef PLUGSSS),
+    # so we use a minimal builtin.c that only provides the required symbol.
+    list(APPEND NAVIT_SRC  ${CMAKE_CURRENT_SOURCE_DIR}/builtin_android.c)
+  else()
+    list(APPEND NAVIT_SRC  ${CMAKE_CURRENT_BINARY_DIR}/builtin.c)
+  endif()
 endif(NOT USE_PLUGINS)
 
 if (${HAVE_GLIB})
@@ -27,7 +50,6 @@ if (${HAVE_GLIB})
 endif()
 
 if(ANDROID)
-   list(APPEND NAVIT_SRC android.c)
    set(NAVIT_LIBNAME navit)
 else()
    set(NAVIT_LIBNAME navit_core)
@@ -110,7 +132,24 @@ endif(SHARED_LIBNAVIT)
 if(NOT MSVC)
     SET(NAVIT_LIBS ${NAVIT_LIBS} m)
 endif(NOT MSVC)
-target_link_libraries(${NAVIT_LIBNAME}  ${MODULES_NAME} ${NAVIT_SUPPORT_LIBS} fib intl ${NAVIT_LIBS})
+# Module source files are compiled directly into the shared lib (NAVIT_SRC),
+# so we set per-file MODULE defines to generate correct module_xxx_init symbols.
+# The static module libraries are NOT linked to avoid duplicate symbols.
+if(ANDROID AND NOT USE_PLUGINS)
+  set_source_files_properties(graphics/android/graphics_android.c PROPERTIES COMPILE_DEFINITIONS "MODULE=graphics_android")
+  set_source_files_properties(osd/core/osd_core.c PROPERTIES COMPILE_DEFINITIONS "MODULE=osd_core")
+  set_source_files_properties(vehicle/demo/vehicle_demo.c PROPERTIES COMPILE_DEFINITIONS "MODULE=vehicle_demo")
+  set_source_files_properties(gui/internal/gui_internal.c PROPERTIES COMPILE_DEFINITIONS "MODULE=gui_internal")
+  set_source_files_properties(map/binfile/binfile.c PROPERTIES COMPILE_DEFINITIONS "MODULE=map_binfile")
+  set_source_files_properties(map/textfile/textfile.c PROPERTIES COMPILE_DEFINITIONS "MODULE=map_textfile")
+  set_source_files_properties(map/csv/csv.c PROPERTIES COMPILE_DEFINITIONS "MODULE=map_csv")
+  set_source_files_properties(map/csv/quadtree.c PROPERTIES COMPILE_DEFINITIONS "MODULE=map_csv")
+  set_source_files_properties(speech/android/speech_android.c PROPERTIES COMPILE_DEFINITIONS "MODULE=speech_android")
+  set_source_files_properties(vehicle/android/vehicle_android.c PROPERTIES COMPILE_DEFINITIONS "MODULE=vehicle_android")
+  target_link_libraries(${NAVIT_LIBNAME} ${NAVIT_SUPPORT_LIBS} fib intl ${NAVIT_LIBS})
+else()
+  target_link_libraries(${NAVIT_LIBNAME}  ${MODULES_NAME} ${NAVIT_SUPPORT_LIBS} fib intl ${NAVIT_LIBS})
+endif()
 set_target_properties(${NAVIT_LIBNAME} PROPERTIES COMPILE_DEFINITIONS "MODULE=navit;LIBDIR=\"${CMAKE_INSTALL_PREFIX}/${LIB_DIR}\";PREFIX=\"${CMAKE_INSTALL_PREFIX}\"")
 if (DEFINED NAVIT_COMPILE_FLAGS)
    set_target_properties(${NAVIT_LIBNAME} PROPERTIES COMPILE_FLAGS "${NAVIT_COMPILE_FLAGS}")

@@ -212,7 +212,7 @@ int main_real(int argc, char **argv)
 
 #ifdef HAVE_API_ANDROID
 		// **disabled** // new preferred location (the new one should have priority over the legacy!)
-		// **disabled** // list = g_list_append(list,g_strdup("/sdcard/zanavi/navit.xml"));
+		// **disabled** // list = g_list_append(list,g_strdup("/sdcard/retronavi/navit.xml"));
 #endif
 
 		//list = g_list_append(list, g_strjoin(NULL, getenv("NAVIT_SHAREDIR"), "/navit.xml", NULL));

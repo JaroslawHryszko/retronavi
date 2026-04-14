@@ -204,6 +204,8 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 
 	public static final String VERSION_TEXT_LONG_INC_REV = "4611";
 	static String ZANAVI_VERSION = "unknown";
+	public static int VERSION_CODE_FOR_LOG = 250;
+	public static String VERSION_NAME_FOR_LOG = "2.0.57";
 	public static String NavitAppVersion = "0";
 	public static String NavitAppVersion_prev = "-1";
 	public static String NavitAppVersion_string = "0";
@@ -1034,6 +1036,9 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		//		if (checkPlayServices())
 		//		{
 		//		}
+
+		RetroNaviLogger.init();
+		RetroNaviLogger.i("Navit", "onCreate started");
 
 		ZANaviMainApplication.restore_error_msg(this.getApplicationContext());
 
@@ -3432,6 +3437,7 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		super.onStart();
 
 		Log.e("Navit", "OnStart");
+		RetroNaviLogger.i("Navit", "onStart");
 
 		while (Global_Init_Finished == 0)
 		{
@@ -3824,12 +3830,14 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 			Navit_maps_loaded = true;
 			// activate all maps
 			Log.e("Navit", "**** LOAD ALL MAPS **** start");
+			RetroNaviLogger.i("Navit", "LOAD ALL MAPS: sending callback 20");
 			Message msg3 = new Message();
 			Bundle b3 = new Bundle();
 			b3.putInt("Callback", 20);
 			msg3.setData(b3);
 			NavitGraphics.callback_handler.sendMessage(msg3);
 			Log.e("Navit", "**** LOAD ALL MAPS **** end");
+			RetroNaviLogger.i("Navit", "LOAD ALL MAPS: callback 20 sent");
 		}
 
 		try
@@ -5883,6 +5891,17 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 			Intent settingsActivity = new Intent(getBaseContext(), NavitPreferences.class);
 			startActivity(settingsActivity);
 
+			return true;
+		}
+		else if (item.getItemId() == R.id.overflow_update_app)
+		{
+			RetroNaviUpdater.startUpdate(this);
+			return true;
+		}
+		else if (item.getItemId() == R.id.overflow_view_logs)
+		{
+			Intent logIntent = new Intent(this, RetroNaviLogViewerActivity.class);
+			startActivity(logIntent);
 			return true;
 		}
 		else if (item.getItemId() == R.id.search_menu_offline)
@@ -13088,6 +13107,7 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 			System.out.println("DDD:06:" + NavitDataDirectory_Maps);
 		}
 		System.out.println("DataStorageDir[*in use*]=" + NavitDataDirectory_Maps);
+		RetroNaviLogger.i("Navit", "Map directory: " + NavitDataDirectory_Maps);
 
 		System.out.println("CI:DataStorageDir in use:" + NavitDataDirectory_Maps);
 		ZANaviLogMessages.ap("MapDataStorageDir", NavitDataDirectory_Maps);
@@ -13128,12 +13148,12 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 
 					for (int ij2 = 0; ij2 < Navit.NavitDataStorageDirs.length; ij2++)
 					{
-						if ((NavitDataStorageDirs[ij2].getAbsolutePath().length() > "/retronavi/maps/".length()) && (!NavitDataStorageDirs[ij2].getAbsolutePath().endsWith("/retronavi/maps/")))
+						String absP = NavitDataStorageDirs[ij2].getAbsolutePath();
+						if ((absP.length() > "/retronavi/maps/".length()) && (!absP.endsWith("/retronavi/maps/")) && (!absP.endsWith("/retronavi/maps")))
 						{
-							System.out.println("DDD:06a:" + ij2 + ":" + Navit.NavitDataStorageDirs[ij2].getAbsolutePath());
-							String temp = NavitDataStorageDirs[ij2].getAbsolutePath();
+							System.out.println("DDD:06a:" + ij2 + ":" + absP);
 							NavitDataStorageDirs[ij2] = null;
-							NavitDataStorageDirs[ij2] = new File(temp + "/retronavi/maps/");
+							NavitDataStorageDirs[ij2] = new File(absP + "/retronavi/maps/");
 							System.out.println("DDD:06b:" + ij2 + ":" + Navit.NavitDataStorageDirs[ij2].getAbsolutePath());
 						}
 					}
