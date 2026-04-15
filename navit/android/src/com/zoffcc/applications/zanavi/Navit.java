@@ -1038,6 +1038,7 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		//		}
 
 		RetroNaviLogger.init();
+		RetroNaviTls12.enable(this);
 		RetroNaviLogger.i("Navit", "onCreate started");
 
 		ZANaviMainApplication.restore_error_msg(this.getApplicationContext());
@@ -5462,9 +5463,6 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		menu.findItem(R.id.overflow_toggle_poi).setTitle(Navit.get_text("toggle POI"));
 		menu.findItem(R.id.overflow_announcer_on).setTitle(Navit.get_text("Announcer On"));
 		menu.findItem(R.id.overflow_announcer_off).setTitle(Navit.get_text("Announcer Off"));
-		menu.findItem(R.id.overflow_download_maps).setTitle(Navit.get_text("download maps"));
-		menu.findItem(R.id.overflow_delete_maps).setTitle(Navit.get_text("delete maps"));
-		menu.findItem(R.id.overflow_maps_age).setTitle(Navit.get_text("show Maps age"));
 		menu.findItem(R.id.overflow_coord_dialog).setTitle(Navit.get_text("Coord Dialog"));
 		menu.findItem(R.id.overflow_add_traffic_block).setTitle(Navit.get_text("add Traffic block"));
 		menu.findItem(R.id.overflow_clear_traffic_block).setTitle(Navit.get_text("clear Traffic blocks"));
@@ -5482,6 +5480,9 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		menu.findItem(R.id.overflow_export_map_points_to_sdcard).setTitle(Navit.get_text("export Destinations"));
 		menu.findItem(R.id.overflow_import_map_points_from_sdcard).setTitle(Navit.get_text("import Destinations"));
 		menu.findItem(R.id.overflow_about).setTitle("O aplikacji");
+		menu.findItem(R.id.overflow_update_app).setTitle(Navit.get_text("Download update"));
+		menu.findItem(R.id.overflow_update_map).setTitle(Navit.get_text("Update map"));
+		menu.findItem(R.id.overflow_view_logs).setTitle(Navit.get_text("App logs"));
 		//. TRANSLATORS: it means: "show current target in google maps"
 		//. TRANSLATORS: please keep this text short, to fit in the android menu!
 		menu.findItem(R.id.overflow_target_in_gmaps).setTitle(Navit.get_text("Target in gmaps"));
@@ -5896,6 +5897,11 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 			RetroNaviUpdater.startUpdate(this);
 			return true;
 		}
+		else if (item.getItemId() == R.id.overflow_update_map)
+		{
+			RetroNaviMapUpdater.startUpdate(this);
+			return true;
+		}
 		else if (item.getItemId() == R.id.overflow_view_logs)
 		{
 			Intent logIntent = new Intent(this, RetroNaviLogViewerActivity.class);
@@ -6006,18 +6012,6 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 		else if (item.getItemId() == R.id.overflow_announcer_off)
 		{
 			return onOptionsItemSelected_wrapper(12);
-		}
-		else if (item.getItemId() == R.id.overflow_download_maps)
-		{
-			return onOptionsItemSelected_wrapper(3);
-		}
-		else if (item.getItemId() == R.id.overflow_delete_maps)
-		{
-			return onOptionsItemSelected_wrapper(8);
-		}
-		else if (item.getItemId() == R.id.overflow_maps_age)
-		{
-			return onOptionsItemSelected_wrapper(17);
 		}
 		else if (item.getItemId() == R.id.overflow_coord_dialog)
 		{
@@ -13117,7 +13111,7 @@ public class Navit extends AppCompatActivity implements Handler.Callback, Sensor
 			System.out.println("DDD:06:" + NavitDataDirectory_Maps);
 		}
 		System.out.println("DataStorageDir[*in use*]=" + NavitDataDirectory_Maps);
-		RetroNaviLogger.i("Navit", "Map directory: " + NavitDataDirectory_Maps);
+		Log.i("Navit", "Map directory: " + NavitDataDirectory_Maps);
 
 		System.out.println("CI:DataStorageDir in use:" + NavitDataDirectory_Maps);
 		ZANaviLogMessages.ap("MapDataStorageDir", NavitDataDirectory_Maps);

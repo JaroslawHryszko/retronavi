@@ -196,7 +196,7 @@ public class ZANaviMainIntroActivityStatic extends AppCompatActivity implements 
 			colors.add(ContextCompat.getColor(this, R.color.zanavi_teal));
 			id_.add(ID_FIRST);
 			title_txt.add("");
-			desc_txt.add(Html.fromHtml(Navit.get_text("Welcome to ZANavi offline Navigation") + "<br><small>Na bazie Navit i ZANavi</small>"));
+			desc_txt.add(Html.fromHtml(Navit.get_text("Welcome to ZANavi offline Navigation") + "<br><small>by Jarek &amp; Juno</small><br><small><i>\"Nawiguję, więc jestem.\"</i></small>"));
 			icon_res.add(R.drawable.icon_large);
 		}
 

@@ -429,6 +429,11 @@
     <PreferenceCategory android:title="@string/pref_cat_debug" >
         <CheckBoxPreference
             android:defaultValue="false"
+            android:key="retronavi_verbose_log"
+            android:summary="Szczegółowe logi TLS, połączeń i pobierania do /sdcard/retronavi/retronavi.log"
+            android:title="Szczegółowe logi RetroNavi" />
+        <CheckBoxPreference
+            android:defaultValue="false"
             android:key="show_debug_messages"
             android:summary="@string/pref_show_debug_messages__debug"
             android:title="@string/pref_debug_mgs" />
@@ -489,6 +494,13 @@
             android:key="map_directory"
             android:summary="@string/pref_change_mapdirectory__needs_a_restart"
             android:title="@string/pref_custom_map_directory" />
+        <EditTextPreference
+            android:defaultValue="https://github.com/JaroslawHryszko/retronavi/releases/latest/download/map.bin"
+            android:dialogMessage="URL pliku .bin mapy"
+            android:dialogTitle="URL mapy"
+            android:key="map_download_url"
+            android:summary="URL do pobierania mapy (menu: Uaktualnij mapę)"
+            android:title="URL pobierania mapy" />
 
         <ListPreference
             android:defaultValue="0"

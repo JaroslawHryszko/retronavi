@@ -1,0 +1,164 @@
+name: Generate map
+
+on:
+  workflow_dispatch:
+    inputs:
+      region:
+        description: 'Region to generate'
+        required: true
+        type: choice
+        options:
+          - poland
+          - dolnoslaskie+czechy
+          - germany
+          - czech
+          - slovakia
+          - austria
+          - france
+          - spain
+          - italy
+          - custom
+        default: 'poland'
+      custom_url:
+        description: 'Custom Geofabrik PBF URL (only for region=custom)'
+        required: false
+        type: string
+      release_tag:
+        description: 'Release tag to upload to (default: latest)'
+        required: false
+        type: string
+        default: 'latest'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libglib2.0-dev zlib1g-dev osmctools wget
+
+      - name: Build maptool
+        run: |
+          cd build-maptool
+          make -j$(nproc)
+          echo "maptool built OK"
+
+      - name: Download and prepare OSM data
+        id: prepare
+        run: |
+          REGION="${{ inputs.region }}"
+          CUSTOM_URL="${{ inputs.custom_url }}"
+          WORKDIR="/tmp/mapgen"
+          mkdir -p "$WORKDIR"
+
+          case "$REGION" in
+
+            dolnoslaskie+czechy)
+              echo "=== Dolnoslaskie + przylegle Czechy ==="
+              BBOX="14.8,49.7,17.5,51.85"
+
+              echo "Downloading dolnoslaskie..."
+              wget -q --show-progress -O "$WORKDIR/dolnoslaskie.osm.pbf" \
+                "https://download.geofabrik.de/europe/poland/dolnoslaskie-latest.osm.pbf"
+
+              echo "Downloading czech republic..."
+              wget -q --show-progress -O "$WORKDIR/czech.osm.pbf" \
+                "https://download.geofabrik.de/europe/czech-republic-latest.osm.pbf"
+
+              echo "Clipping czech data to bbox $BBOX..."
+              osmconvert "$WORKDIR/czech.osm.pbf" -b="$BBOX" --complete-ways \
+                --out-o5m -o="$WORKDIR/czech_clip.o5m"
+
+              echo "Merging..."
+              osmconvert "$WORKDIR/dolnoslaskie.osm.pbf" "$WORKDIR/czech_clip.o5m" \
+                -o="$WORKDIR/merged.osm"
+
+              echo "osm_input=$WORKDIR/merged.osm" >> "$GITHUB_OUTPUT"
+              echo "input_type=osm" >> "$GITHUB_OUTPUT"
+              echo "name=dolnoslaskie+czechy" >> "$GITHUB_OUTPUT"
+              ;;
+
+            custom)
+              if [ -z "$CUSTOM_URL" ]; then
+                echo "ERROR: custom region requires custom_url input"
+                exit 1
+              fi
+              echo "Downloading: $CUSTOM_URL"
+              wget -q --show-progress -O "$WORKDIR/region.osm.pbf" "$CUSTOM_URL"
+              echo "osm_input=$WORKDIR/region.osm.pbf" >> "$GITHUB_OUTPUT"
+              echo "input_type=pbf" >> "$GITHUB_OUTPUT"
+              echo "name=custom" >> "$GITHUB_OUTPUT"
+              ;;
+
+            *)
+              case "$REGION" in
+                poland)    URL="https://download.geofabrik.de/europe/poland-latest.osm.pbf" ;;
+                germany)   URL="https://download.geofabrik.de/europe/germany-latest.osm.pbf" ;;
+                czech)     URL="https://download.geofabrik.de/europe/czech-republic-latest.osm.pbf" ;;
+                slovakia)  URL="https://download.geofabrik.de/europe/slovakia-latest.osm.pbf" ;;
+                austria)   URL="https://download.geofabrik.de/europe/austria-latest.osm.pbf" ;;
+                france)    URL="https://download.geofabrik.de/europe/france-latest.osm.pbf" ;;
+                spain)     URL="https://download.geofabrik.de/europe/spain-latest.osm.pbf" ;;
+                italy)     URL="https://download.geofabrik.de/europe/italy-latest.osm.pbf" ;;
+              esac
+              echo "Downloading: $URL"
+              wget -q --show-progress -O "$WORKDIR/region.osm.pbf" "$URL"
+              echo "osm_input=$WORKDIR/region.osm.pbf" >> "$GITHUB_OUTPUT"
+              echo "input_type=pbf" >> "$GITHUB_OUTPUT"
+              echo "name=$REGION" >> "$GITHUB_OUTPUT"
+              ;;
+          esac
+
+      - name: Convert to Navit binfile
+        run: |
+          MAPTOOL="${{ github.workspace }}/build-maptool/maptool"
+          INPUT="${{ steps.prepare.outputs.osm_input }}"
+          INPUT_TYPE="${{ steps.prepare.outputs.input_type }}"
+          OUTPUT="/tmp/mapgen/map.bin"
+
+          echo "Converting to binfile..."
+          if [ "$INPUT_TYPE" = "pbf" ]; then
+            osmconvert "$INPUT" | "$MAPTOOL" -6 -j8 "$OUTPUT"
+          else
+            "$MAPTOOL" -6 -j8 "$OUTPUT" < "$INPUT"
+          fi
+
+          ls -lh "$OUTPUT"
+          echo "size_mb=$(du -m "$OUTPUT" | cut -f1)" >> "$GITHUB_ENV"
+
+      - name: Upload to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ inputs.release_tag }}"
+          REGION="${{ steps.prepare.outputs.name }}"
+          SIZE_MB="${size_mb}"
+
+          if ! gh release view "$TAG" --repo "${{ github.repository }}" > /dev/null 2>&1; then
+            echo "Creating release: $TAG"
+            gh release create "$TAG" \
+              --repo "${{ github.repository }}" \
+              --title "RetroNavi maps" \
+              --notes "Auto-generated maps from OpenStreetMap data (Geofabrik)."
+          fi
+
+          gh release delete-asset "$TAG" "map.bin" \
+            --repo "${{ github.repository }}" \
+            --yes 2>/dev/null || true
+
+          echo "Uploading map.bin ($SIZE_MB MB, region: $REGION) to release $TAG..."
+          gh release upload "$TAG" /tmp/mapgen/map.bin \
+            --repo "${{ github.repository }}" \
+            --clobber
+
+          echo ""
+          echo "Done!"
+          echo "  Region: $REGION"
+          echo "  Size: $SIZE_MB MB"
+          echo "  URL: https://github.com/${{ github.repository }}/releases/download/$TAG/map.bin"

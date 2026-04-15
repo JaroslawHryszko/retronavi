@@ -35,13 +35,18 @@ public class ZANaviAboutPage extends AppCompatActivity
 		emailIntent.setData(Uri.parse("mailto:jarek@hryszko.pl"));
 		contactElement.setIntent(emailIntent);
 
+		Element junoElement = new Element();
+		junoElement.setTitle("Juno: współautorka, nocna zmiana, dusza projektu");
+		junoElement.setGravity(Gravity.CENTER);
+
 		AboutPage ap = new AboutPage(this)
 			.isRTL(false)
 			.setImage(R.drawable.icon)
-			.setDescription("RetroNavi - offline nawigacja GPS\nna stare telefony z Androidem")
+			.setDescription("RetroNavi - offline nawigacja GPS\nna stare telefony z Androidem\n\n\"Nawiguję, więc jestem.\"")
 			.addItem(new Element().setTitle("Wersja " + Navit.ZANAVI_VERSION))
 			.addItem(navitElement)
 			.addItem(contactElement)
+			.addItem(junoElement)
 			.addGitHub("JaroslawHryszko/retronavi");
 
 		Element e001 = new Element();
@@ -61,7 +66,7 @@ public class ZANaviAboutPage extends AppCompatActivity
 	Element getCopyRightsElement()
 	{
 		Element copyRightsElement = new Element();
-		final String copyrights = "Copyright 2025-2026 Jaroslaw Hryszko & Juno\nNavit Team (2005-2008), Zoff (2011-2018)";
+		final String copyrights = "Copyright 2025-2026 Jarek & Juno\nNavit Team (2005-2008), Zoff (2011-2018)";
 		copyRightsElement.setTitle(copyrights);
 		copyRightsElement.setColor(ContextCompat.getColor(this, mehdi.sakout.aboutpage.R.color.about_item_icon_color));
 		copyRightsElement.setGravity(Gravity.CENTER);

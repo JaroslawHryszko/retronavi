@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.zoffcc.applications.zanavi"
+      android:sharedUserId="com.zoffcc.applications.zanavi"
+      android:versionCode="260"
+      android:versionName="1.1.0"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:installLocation="auto">
+
+	<uses-sdk tools:overrideLibrary="mehdi.sakout.aboutpage,com.heinrichreimersoftware.materialintro,com.github.paolorotolo.appintro"
+		android:minSdkVersion="9" android:targetSdkVersion="23" />
+	<uses-feature android:name="android.hardware.location.network" android:required="false"/>
+	<uses-feature android:name="android.hardware.location.gps" android:required="false"/>
+	<uses-feature android:name="android.hardware.location" android:required="false"/>
+	<uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
+
+	<supports-screens android:smallScreens="true"
+		android:normalScreens="true" android:largeScreens="true"
+		android:resizeable="true" android:xlargeScreens="true" android:anyDensity="true"/>
+
+    <!-- <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" /> -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_LOGS" />
+	
+
+    <application android:label="@string/app_name"
+                 android:icon="@drawable/icon"
+                 android:debuggable="true"
+                 android:allowBackup="true"
+                 android:restoreAnyVersion="true"
+				 android:allowClearUserData="true"
+				 android:theme="@style/CustomActionBarTheme"
+				 android:name="com.zoffcc.applications.zanavi.ZANaviMainApplication"
+                 android:backupAgent="com.zoffcc.applications.zanavi.ZANaviBackupAgent">
+        <activity android:name="Navit"
+                  android:label="@string/app_name"
+                  android:exported="true"
+                  android:launchMode="singleTask"
+                  android:theme="@style/CustomActionBarThemeM"
+                  android:configChanges="screenSize|locale|touchscreen|navigation|orientation|fontScale|keyboard|keyboardHidden"
+		  >
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<data android:scheme="google.navigation" />
+			</intent-filter>
+
+            <intent-filter>
+            	<action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="geo" />
+            </intent-filter>
+
+			<!--
+            <intent-filter>
+                <action android:name="com.google.android.radar.SHOW_RADAR" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+			-->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" android:host="maps.google.com" />
+                <data android:scheme="https" android:host="maps.google.com" />
+            </intent-filter>
+
+            <intent-filter>
+		        <action android:name="android.intent.action.VIEW" />
+		        <action android:name="android.intent.action.SEND" />
+				<category android:name="android.intent.category.BROWSABLE" />
+		        <category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.ALTERNATIVE" />
+             	<data android:pathPattern=".*\\.gpx" />
+				<data android:scheme="file" />
+			</intent-filter>
+
+			<intent-filter>
+		        <action android:name="android.intent.action.VIEW" />
+				<action android:name="android.intent.action.SEND" />
+				<category android:name="android.intent.category.BROWSABLE" />
+		        <category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.ALTERNATIVE" />
+ 				<data android:mimeType="application/gpx" />
+		        <data android:scheme="file" />
+			</intent-filter>
+
+<!-- 			<intent-filter> -->
+<!-- 		        <action android:name="android.intent.action.VIEW" /> -->
+<!-- 		        <category android:name="android.intent.category.BROWSABLE" /> -->
+<!-- 		        <category android:name="android.intent.category.DEFAULT" /> -->
+<!--             	<data android:pathPattern=".*\\.gpx" /> -->
+<!-- 		        <data android:scheme="http" android:host="*" /> -->
+<!-- 		        <data android:scheme="https" android:host="*" /> -->
+<!-- 			</intent-filter> -->
+
+<!-- 			<intent-filter> -->
+<!-- 		        <action android:name="android.intent.action.VIEW" /> -->
+<!-- 		        <category android:name="android.intent.category.BROWSABLE" /> -->
+<!-- 		        <category android:name="android.intent.category.DEFAULT" /> -->
+<!--  				<data android:mimeType="application/gpx" /> -->
+<!-- 		        <data android:scheme="http" android:host="*" /> -->
+<!-- 		        <data android:scheme="https" android:host="*" /> -->
+<!-- 			</intent-filter> -->
+		</activity>
+
+		<receiver android:name=".ZANaviDriveHomeWidgetProvider" android:label="drive Home">
+			<intent-filter>
+			    <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+		    </intent-filter>
+		    <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_home_info" />
+		</receiver>
+
+     	<receiver android:name="ZANaviDebugReceiver" android:enabled="true">
+            <intent-filter>
+                <action android:name="com.zoffcc.applications.zanavi.comm" />
+            </intent-filter>
+        </receiver>
+
+<!--
+		<receiver android:enabled="true" android:name=".ZANaviBootReceiver"
+		        android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+		
+		        <intent-filter>
+		                <action android:name="android.intent.action.BOOT_COMPLETED" />
+		                <category android:name="android.intent.category.DEFAULT" />
+		        </intent-filter>
+		</receiver>
+-->
+
+		<service
+            android:name="ZANaviMapDownloaderService"
+            android:icon="@drawable/icon"
+            android:label="ZANaviMapDownloaderSRV" >
+        </service>
+
+        <meta-data android:name="com.google.android.backup.api_key" android:value="xxxx" />
+
+		<activity android:name=".NavitAddressSearchCountrySelectActivity"></activity>
+		<activity android:name=".NavitAddressSearchActivity"></activity>
+		<activity android:name=".NavitDownloadSelectMapActivity"></activity>
+		<activity android:name=".NavitDeleteSelectMapActivity"></activity>
+		<activity android:name=".NavitAddressResultListActivity"></activity>
+		<activity android:name=".NavitMapPreviewActivity"></activity>
+		<activity android:name=".NavitRecentDestinationActivity"></activity>
+		<activity android:name=".NavitFeedbackFormActivity"></activity>
+		<activity android:name=".GeoCoordEnterDialog"></activity>
+		<activity android:name="com.lamerman.FileDialog"></activity>
+		<activity android:name=".ZANaviVoiceInput"></activity>
+		<activity android:name=".ZANaviDownloadMapCancelActivity"></activity>
+		<activity android:name=".ZANaviDonateActivity"></activity>
+		<activity android:name=".ZANaviNormalDonateActivity"></activity>
+		<activity android:name=".NavitPreferences" android:label="@string/set_preferences"></activity>
+		<activity android:name=".ZANaviMainIntroActivityStatic"
+		    android:configChanges="screenSize|locale|touchscreen|navigation|orientation|fontScale|keyboard|keyboardHidden"></activity>
+		<activity android:name=".ZANaviAboutPage"></activity>
+		<activity android:name=".RetroNaviLogViewerActivity" android:label="RetroNavi Logi"></activity>
+		<service android:name=".RetroNaviMapDownloadService" android:exported="false" />
+		<service android:name=".RetroNaviAppUpdateService" android:exported="false" />
+    </application>
+</manifest>

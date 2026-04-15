@@ -1029,11 +1029,150 @@ public class NavitTextTranslations
 		k = "__INFO_BOX_TEXT__";
 		v = new String[] { "en","You are running ZANavi for the first time!\n\nTo start select \"download maps\"\nfrom the menu, and download a map\nfor your current Area.\nThis will download a large file, so please\nmake sure you have a flatrate or similar!\n\nMap data (c) OpenStreetMap contributors\n\nFor more information\nvisit our Website\nhttp://zanavi.cc\n\n       Have fun using ZANavi.", "pt","Você está executando o ZANavi pela primeira vez!\n\nPara começar, selecione \"baixar mapas\"\nno menu e baixe um mapa\nda sua localidade.\nIsso fará o download de um arquivo grande,\nlogo, recomenda-se taxa de transferência estável!\n\nMapdata:\nCC-BY-SA OpenStreetMap Project\n\nPara mais informações\nvisite nosso website\nhttp://zanavi.cc\n\n Divirta-se com o ZANavi.", "pt_BR","Você está executando o ZANavi pela primeira vez!\n\nPara começar, selecione \"baixar mapas\"\nno menu e baixe um mapa\nda sua localidade.\nIsso fará o download de um arquivo grande,\nlogo, recomenda-se taxa de transferência estável!\n\nMapdata:\nCC-BY-SA OpenStreetMap Project\n\nPara mais informações\nvisite nosso website\nhttp://zanavi.cc\n\n Divirta-se com o ZANavi.", "zh","这是您第一次使用ZANavi！ \n\n首先从菜单中选择“下载地图”，将下载地图文件。\n地图文件可能很大，请确保你的服务商是按时长计费（而不是按流量）或相近方式！\n\n地图数据：CC-BY-SA OpenStreetMap Project\n\n更多信息，请访问我们的网站\nhttp://zanavi.cc\n\n祝您使用愉快。", "zh_HK","這是你首次使用 ZANavi！\n\n一開始先在選單選「下載地圖」\n並為當前地區下載地圖。\n此舉會下載一個大檔案，故請\n確保你的手機收費不會太高！\n\n地圖資料：\nCC-BY-SA OpenStreetMap Project\n\n詳情\n請瀏覽我們的網站\nhttp://zanavi.cc\n\n Have fun using ZANavi.", "cs","ZANavi jste právě spustili poprvé!\n\nPrvně zvolte \"stáhnout mapy\"\nz menu a stáhněte mapu\noblastí, kde se právě nacházíte.\n\nMapové soubory jsou velké,\nproto se ujistěte, že máte datový paušál!\n\nMapové podklady:\nCC-BY-SA OpenStreetMap Project\n\nVíce informací získáte\nna našich stránkách\nhttp://zanavi.cc\n\nPřejme hodně zábavy se ZANavi.", "nl","U voert ZANavi voor de eerste keer uit.\n\nOm te beginnen, selecteer\n\"download kaarten\"\nuit het menu en download een kaart\nvan je regio.\nDe kaarten zijn groot,\nhet is dus aangeraden om een\nongelimiteerde internetverbinding te hebben!\n\nKaartdata:\nCC-BY-SA OpenStreetMap Project\n\nVoor meer info\nbezoek onze site\nhttp://zanavi.cc\n\n       Nog veel plezier met ZANavi.", "fr","Vous exécutez ZANavi pour la première fois\n\nPour commencer, sélectionnez \n\"télécharchez carte\"\ndu menu et télechargez une carte\nde votre région.\nLes cartes sont volumineux, donc\nil est préférable d'avoir une connection\ninternet illimitée!\n\nCartes:\n CC-BY-SA OpenStreetMap Project\n\nPour plus d'infos\nvisitez notre site internet\nhttp://zanavi.cc\n\n       Amusez vous avec ZANavi.", "de","Sie starten ZANavi zum ersten Mal!\n\nZum loslegen im Menu \"Karten laden\"\nauswählen und Karte für die\ngewünschte Region runterladen.\nDie Kartendatei ist sehr gross,\nbitte flatrate oder ähnliches aktivieren!\n\nKartendaten (c) OpenStreetMap contributors\n\nFür mehr Infos\nbitte die Website besuchen\nhttp://zanavi.cc\n\n       Viel Spaß mit ZANavi.", "el","Τρέχετε το ZANavi για πρώτη φορά!\n\nΓια να ξεκινήσετε επιλέξτε \"λήψη χαρτών\"\nαπό το μενού, και κατεβάστε ένα χάρτη για \nτην περιοχή σας.\nΑυτό θα κατεβάσει ένα πολύ μεγάλο αρχείο, \nγιαυτό παρακαλώ υπολογίστε τις χρεώσεις \nτου παροχέα σας internet!\n\nΔεδομένα Χάρτη:\nCC-BY-SA OpenStreetMap Project\n\nΓια περισσότερες πληροφορίες \nεπισκεφτείτε την Ιστοσελίδα μας\nhttp://zanavi.cc\n\nΕυχαριστηθείτε την χρήση του ZANavi.", "hu","Először használja a ZANavi-t!\n\nKezdetnek válassza a \"Térképek letöltése\"\nmenüpontot, és töltsön le egy térképet\na kívánt területről.\nEz egy nagy adatállományt fog letölteni, tehat kérjük\nbizonyosodjon meg, hogy átalánydíjas letöltéses (flatrate) vagy hasonló előfizetése van (különben sokba kerülhet)!\n\nTérképadatok:\n CC-BY-SA OpenStreetMap Project\n\nTovábbi információkért\nlátogassa meg weblapunkat:\nhttp://zanavi.cc\n\nSok örömet kívánunk a ZANavi használatával!", "pl","Używasz ZANavi po raz pierwszy!\n\nNa początku wybierz opcję \"Pobieranie map\"\nz menu i pobierz mapę\ndla twojego obszaru.\nTo spowoduje pobranie dużego pliku, dlatego proszę\nupewnij się czy masz pakiet internetowy lub połączenie WiFi!\n\nMapy:\nCC-BY-SA OpenStreetMap \n\nWięcej informacji\nna naszej stronie\nhttp://zanavi.cc\n\nMiłej zabawy przy ZANavi!", "sk","Používate ZANavi prvýkrát!\n\nNa začatie svoľte \"Stiahnuť mapy\"\nz ponuky, a stiahnite si mapu\npre Vašu aktuálnu oblasť.\nToto stiahne veľký súbor, takže\nsa uistite, že máte neobmedzený alebo podobný internet!\n\nMapové údaje:\nCC-BY-SA OpenStreetMap Project\n\nPre viac informácií\nnavštívte našu webstránku\nhttp://zanavi.cc\n\n       Bavte sa pri používaní ZANavi."};
 		p(k, v);
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		// change those in https://translations.launchpad.net/zanavi
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+		// --- RetroNavi translations ---
+		k = "Map update";
+		v = new String[] { "en","Map update", "pl","Aktualizacja mapy"};
+		p(k, v);
+		k = "Download map from:";
+		v = new String[] { "en","Download map from:", "pl","Pobrać mapę z:"};
+		p(k, v);
+		k = "Warning: all existing maps will be removed and replaced with the new one.\nThis may take a while - maps are several hundred MB.";
+		v = new String[] { "en","Warning: all existing maps will be removed and replaced with the new one.\nThis may take a while - maps are several hundred MB.", "pl","Uwaga: wszystkie obecne mapy zostaną usunięte i zastąpione nową.\nTo może potrwać - mapy mają kilkaset MB."};
+		p(k, v);
+		k = "Download";
+		v = new String[] { "en","Download", "pl","Pobierz"};
+		p(k, v);
+		k = "Cancel";
+		v = new String[] { "en","Cancel", "pl","Anuluj"};
+		p(k, v);
+		k = "Downloading map";
+		v = new String[] { "en","Downloading map", "pl","Pobieranie mapy"};
+		p(k, v);
+		k = "Connecting...";
+		v = new String[] { "en","Connecting...", "pl","Łączenie..."};
+		p(k, v);
+		k = "Server error: HTTP ";
+		v = new String[] { "en","Server error: HTTP ", "pl","Błąd serwera: HTTP "};
+		p(k, v);
+		k = "Failed to save map";
+		v = new String[] { "en","Failed to save map", "pl","Nie udało się zapisać mapy"};
+		p(k, v);
+		k = "Download error: ";
+		v = new String[] { "en","Download error: ", "pl","Błąd pobierania: "};
+		p(k, v);
+		k = "Downloaded";
+		v = new String[] { "en","Downloaded", "pl","Pobrano"};
+		p(k, v);
+		k = "Map downloaded";
+		v = new String[] { "en","Map downloaded", "pl","Mapa pobrana"};
+		p(k, v);
+		k = "Restart the app to load the new map.";
+		v = new String[] { "en","Restart the app to load the new map.", "pl","Zrestartuj aplikację, aby załadować nową mapę."};
+		p(k, v);
+		k = "Failed to download map";
+		v = new String[] { "en","Failed to download map", "pl","Nie udało się pobrać mapy"};
+		p(k, v);
+		k = "Error";
+		v = new String[] { "en","Error", "pl","Błąd"};
+		p(k, v);
+		k = "RetroNavi update";
+		v = new String[] { "en","RetroNavi update", "pl","Aktualizacja RetroNavi"};
+		p(k, v);
+		k = "Download latest version from GitHub?\n\nMaps will not be removed.";
+		v = new String[] { "en","Download latest version from GitHub?\n\nMaps will not be removed.", "pl","Pobrać najnowszą wersję aplikacji z GitHub?\n\nMapy nie zostaną usunięte."};
+		p(k, v);
+		k = "Downloading update";
+		v = new String[] { "en","Downloading update", "pl","Pobieranie aktualizacji"};
+		p(k, v);
+		k = "Connecting to GitHub...";
+		v = new String[] { "en","Connecting to GitHub...", "pl","Łączenie z GitHub..."};
+		p(k, v);
+		k = "Downloaded. Installing...";
+		v = new String[] { "en","Downloaded. Installing...", "pl","Pobrano. Instalowanie..."};
+		p(k, v);
+		k = "Failed to download file";
+		v = new String[] { "en","Failed to download file", "pl","Nie udało się pobrać pliku"};
+		p(k, v);
+		k = "Install error: ";
+		v = new String[] { "en","Install error: ", "pl","Błąd instalacji: "};
+		p(k, v);
+		k = "No logs";
+		v = new String[] { "en","No logs", "pl","Brak logów"};
+		p(k, v);
+		k = "Read error: ";
+		v = new String[] { "en","Read error: ", "pl","Błąd odczytu: "};
+		p(k, v);
+		k = "... (older entries skipped) ...";
+		v = new String[] { "en","... (older entries skipped) ...", "pl","... (pominięto starsze wpisy) ..."};
+		p(k, v);
+		k = "Saved: ";
+		v = new String[] { "en","Saved: ", "pl","Zapisano: "};
+		p(k, v);
+		k = "File: ";
+		v = new String[] { "en","File: ", "pl","Plik: "};
+		p(k, v);
+		k = "Update map";
+		v = new String[] { "en","Update map", "pl","Uaktualnij mapę"};
+		p(k, v);
+		k = "Download update";
+		v = new String[] { "en","Download update", "pl","Pobierz aktualizację"};
+		p(k, v);
+		k = "App logs";
+		v = new String[] { "en","App logs", "pl","Logi aplikacji"};
+		p(k, v);
+
+		k = "TLS handshake - this may take a moment on older devices";
+		v = new String[] { "en","TLS handshake - this may take a moment on older devices", "pl","Uzgadnianie TLS - na starszych urządzeniach może to chwilę potrwać"};
+		p(k, v);
+
+		k = "Following redirect...";
+		v = new String[] { "en","Following redirect...", "pl","Przekierowanie..."};
+		p(k, v);
+
+		k = "Starting download...";
+		v = new String[] { "en","Starting download...", "pl","Rozpoczynanie pobierania..."};
+		p(k, v);
+
+		k = "Installing map...";
+		v = new String[] { "en","Installing map...", "pl","Instalowanie mapy..."};
+		p(k, v);
+
+		k = "Download runs in background - you can keep navigating.";
+		v = new String[] { "en","Download runs in background - you can keep navigating.", "pl","Pobieranie działa w tle - możesz kontynuować nawigację."};
+		p(k, v);
+
+		k = "Map download started - check notification bar";
+		v = new String[] { "en","Map download started - check notification bar", "pl","Pobieranie mapy rozpoczęte - sprawdź pasek powiadomień"};
+		p(k, v);
+
+		k = "Map download is already in progress.\nCheck the notification bar for progress.";
+		v = new String[] { "en","Map download is already in progress.\nCheck the notification bar for progress.", "pl","Pobieranie mapy już trwa.\nSprawdź pasek powiadomień."};
+		p(k, v);
+
+		k = "Download cancelled";
+		v = new String[] { "en","Download cancelled", "pl","Pobieranie anulowane"};
+		p(k, v);
+
+		k = "Update download is already in progress.\nCheck the notification bar for progress.";
+		v = new String[] { "en","Update download is already in progress.\nCheck the notification bar for progress.", "pl","Pobieranie aktualizacji już trwa.\nSprawdź pasek powiadomień."};
+		p(k, v);
+
+		k = "Update download started - check notification bar";
+		v = new String[] { "en","Update download started - check notification bar", "pl","Pobieranie aktualizacji rozpoczęte - sprawdź pasek powiadomień"};
+		p(k, v);
+
+		k = "Failed to save update";
+		v = new String[] { "en","Failed to save update", "pl","Nie udało się zapisać aktualizacji"};
+		p(k, v);
+
+		k = "Update downloaded";
+		v = new String[] { "en","Update downloaded", "pl","Aktualizacja pobrana"};
+		p(k, v);
+
+		k = "Tap to install";
+		v = new String[] { "en","Tap to install", "pl","Kliknij, aby zainstalować"};
+		p(k, v);
 
 		Log.e("NavitTextTranslations", "... ready");
 	}

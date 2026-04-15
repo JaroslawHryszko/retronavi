@@ -12,8 +12,83 @@ RetroNavi is a revival of the abandoned ZANavi project, adapted to build and run
 - Bicycle-friendly: hideable UI bars for maximum map visibility on small screens
 - All features unlocked (no donate-version restrictions)
 - TTS voice guidance with automatic English fallback
-- In-app update from GitHub releases (menu: "Pobierz aktualizacje")
-- File-based logging to SD card with in-app log viewer (menu: "Logi aplikacji")
+- In-app map download from GitHub releases with background download and notification progress
+- In-app update from GitHub releases with background download and notification progress
+- TLS 1.2 support on Android 4.1-4.4 via BouncyCastle (for devices without Google Play Services)
+- File-based logging to SD card with in-app log viewer
+
+## Installing on device
+
+```bash
+adb install -r android-debug.apk
+```
+
+On old phones with small /data partition (e.g. 150 MB) this may fail with INSTALL_FAILED_INSUFFICIENT_STORAGE. Workaround:
+
+```bash
+adb push android-debug.apk /sdcard/retronavi/retronavi-update.apk
+adb shell pm install -r /sdcard/retronavi/retronavi-update.apk
+```
+
+## Maps
+
+RetroNavi uses Navit's binfile map format (.bin). Map files go in `/sdcard/retronavi/maps/` on the device.
+
+### Downloading maps from the app
+
+Menu -> "Uaktualnij mape" downloads the latest map from GitHub releases. The download runs in the background - you can keep navigating. Progress and cancel button are in the notification bar.
+
+The default URL points to `https://github.com/JaroslawHryszko/retronavi/releases/latest/download/map.bin`. You can change it in Settings -> "URL pobierania mapy".
+
+### Generating maps with GitHub Actions
+
+The easiest way to generate fresh maps from OpenStreetMap data. No local tools needed.
+
+1. Go to the repository on GitHub
+2. Click **Actions** -> **Generate map**
+3. Click **Run workflow**
+4. Pick a region from the dropdown (poland, dolnoslaskie+czechy, germany, czech, etc.) or select "custom" and paste a Geofabrik PBF URL
+5. Wait for the workflow to finish (a few minutes for small regions, up to an hour for large countries)
+6. The map is uploaded as `map.bin` to the GitHub release
+
+The `dolnoslaskie+czechy` option downloads both datasets, clips Czech Republic to the border region (bounding box 14.8-17.5 E, 49.7-51.85 N), merges them, and converts to binfile. This gives you Lower Silesia with the Czech side of the border included.
+
+To add more composite regions (e.g. malopolskie+slowacja), add a new case in `.github/workflows/generate-map.yml`.
+
+### Generating maps locally
+
+Requirements: `libglib2.0-dev`, `zlib1g-dev`, `osmctools`
+
+```bash
+# Build maptool
+cd build-maptool
+make -j$(nproc)
+cd ..
+
+# Generate a map (downloads PBF from Geofabrik automatically)
+./generate_map.sh poland
+
+# Or a composite region
+./generate_dolnoslaskie.sh
+```
+
+Result goes to `maps/`. Push to device:
+
+```bash
+adb push maps/poland.bin /sdcard/retronavi/maps/navitmap_001.bin
+```
+
+### Generating maps manually with maptool
+
+```bash
+cd build-maptool
+wget https://download.geofabrik.de/europe/poland-latest.osm.pbf
+osmconvert poland-latest.osm.pbf | ./maptool -6 -j8 poland.bin
+```
+
+## Updating the app
+
+Menu -> "Pobierz aktualizacje" downloads the latest APK from GitHub releases and launches the system installer. Maps on SD card are not affected. The download runs in the background with progress in the notification bar.
 
 ## Building
 
@@ -67,11 +142,13 @@ cd navit
 
 APK will be at `navit/android/build/outputs/apk/debug/android-debug.apk`.
 
-## Maps
+## TLS 1.2 on old Android
 
-RetroNavi uses Navit's binfile map format (.bin). Place map files in `/sdcard/retronavi/maps/` on the device.
+Android 4.2 CyanogenMod (and similar old ROMs without Google Play Services) cannot connect to GitHub or other modern HTTPS servers - the platform OpenSSL claims TLS 1.2 support but actually sends TLS 1.0 ClientHello, which is rejected.
 
-Maps can be downloaded from within the app or generated from OpenStreetMap data using maptool.
+RetroNavi solves this with BouncyCastle 1.58 as a pure-Java TLS 1.2 implementation. The TLS handshake takes about 25 seconds on an 800 MHz ARM11 CPU (pure Java crypto), and download speed is around 1 MB/min. This is slow but functional. For practical use, loading maps via `adb push` is faster, but the in-app download works for users who need it.
+
+The verbose logging option in Settings helps diagnose TLS connection issues.
 
 ## Architecture
 
@@ -81,7 +158,17 @@ Two layers:
 
 Communication via JNI with numbered callbacks (e.g. callback 47 = set map directory, callback 20 = load maps).
 
-Main activity is `Navit.java` (~17k lines). New RetroNavi additions use the `RetroNavi` prefix (e.g. `RetroNaviLogger.java`, `RetroNaviUpdater.java`).
+Main activity is `Navit.java` (~17k lines). New RetroNavi additions use the `RetroNavi` prefix:
+
+| File | Purpose |
+|------|---------|
+| `RetroNaviTls12.java` | BouncyCastle TLS 1.2 for Android 4.1-4.4 |
+| `RetroNaviMapDownloadService.java` | Background map download with notification progress |
+| `RetroNaviMapUpdater.java` | Map download entry point (confirmation dialog) |
+| `RetroNaviAppUpdateService.java` | Background APK download with notification progress |
+| `RetroNaviUpdater.java` | App update entry point (confirmation dialog) |
+| `RetroNaviLogger.java` | File logging to /sdcard/retronavi/retronavi.log |
+| `RetroNaviLogViewerActivity.java` | In-app log viewer |
 
 Package name is still `com.zoffcc.applications.zanavi` for compatibility - changing it would break JNI, device paths, and SharedPreferences.
 

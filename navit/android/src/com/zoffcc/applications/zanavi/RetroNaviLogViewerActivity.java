@@ -41,7 +41,7 @@ public class RetroNaviLogViewerActivity extends Activity
 		String logContent = readLogFile();
 		if (logContent.length() == 0)
 		{
-			textView.setText("Brak logow.\n\nPlik: " + RetroNaviLogger.getLogFilePath());
+			textView.setText(Navit.get_text("No logs") + "\n\n" + Navit.get_text("File: ") + RetroNaviLogger.getLogFilePath());
 		}
 		else
 		{
@@ -51,7 +51,7 @@ public class RetroNaviLogViewerActivity extends Activity
 		scrollView.addView(textView);
 		setContentView(scrollView);
 
-		setTitle("RetroNavi Logi");
+		setTitle(Navit.get_text("App logs"));
 
 		final ScrollView sv = scrollView;
 		scrollView.post(new Runnable()
@@ -79,7 +79,7 @@ public class RetroNaviLogViewerActivity extends Activity
 			if (logFile.length() > 100 * 1024)
 			{
 				skipBytes = logFile.length() - 100 * 1024;
-				sb.append("... (pominieto starsze wpisy) ...\n\n");
+				sb.append(Navit.get_text("... (older entries skipped) ...")).append("\n\n");
 			}
 
 			BufferedReader reader = new BufferedReader(new FileReader(logFile));
@@ -98,7 +98,7 @@ public class RetroNaviLogViewerActivity extends Activity
 		}
 		catch (Exception e)
 		{
-			sb.append("Blad odczytu: ").append(e.getMessage());
+			sb.append(Navit.get_text("Read error: ")).append(e.getMessage());
 		}
 		return sb.toString();
 	}
